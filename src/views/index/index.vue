@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main-page">
     <h4>首页</h4>
     <p>{{ msg }}</p>
   </div>
@@ -16,6 +16,8 @@ export default defineComponent({
 })
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+.main-page {
+  width: 100%;
+}
 </style>

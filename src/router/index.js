@@ -1,15 +1,12 @@
-import VueRouter from 'vue-router'
-
-const Foo = { template: '<div>foo</div>' }
-const Bar = { template: '<div>bar</div>' }
+import { createRouter, createWebHashHistory } from 'vue-router'
 
 const routes = [
-  { path: '/', component: () => import('@/views/index/index.vue') },
-  { path: '/foo', component: Foo },
-  { path: '/bar', component: Bar }
+  { path: '/', component: () => import('@/views/index/index') },
+  { path: '/test', component: () => import('@/views/test/index') },
 ]
 
-const router = new VueRouter({
+const router = createRouter({
+  history: createWebHashHistory(),
   routes,
   scrollBehavior(to, from, savedPosition) {
     return savedPosition ? savedPosition : { left: 0, top: 0 }

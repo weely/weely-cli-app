@@ -13,9 +13,13 @@
   },
   "main": "background.js",
   "dependencies": {
+    "ant-design-vue": "^2.2.7",
     "core-js": "^3.6.5",
+    "lodash": "^4.17.21",
+    "normalize.css": "^8.0.1",
+    "nprogress": "^0.2.0",
     "vue": "^3.0.0",
-    "vue-router": "^3.5.2"
+    "vue-router": "^4.0.11"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -27,8 +31,9 @@
     "electron-devtools-installer": "^3.2.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^7.0.0",
-    "node-sass": "^6.0.1",
-    "vue-cli-plugin-electron-builder": "~2.1.1"
+    "sass": "^1.39.2",
+    "sass-loader": "^10.2.0",
+    "vue-cli-plugin-electron-builder": "^2.1.1"
   },
   "eslintConfig": {
     "root": true,

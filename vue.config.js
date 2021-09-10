@@ -32,7 +32,7 @@ module.exports = {
     extract: true,
     loaderOptions: {
       sass: {
-        implementation: require('node-sass'), // This line must in sass option
+        implementation: require('sass'), // This line must in sass option
       },
     },
   },

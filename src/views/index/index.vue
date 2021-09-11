@@ -2,17 +2,28 @@
   <div class="main-page">
     <h4>首页</h4>
     <p>{{ msg }}</p>
+    <a-button @click="success">Success</a-button>
   </div>
 </template>
 
 <script>
-import { ref, defineComponent } from 'vue'
+import { ref, defineComponent, getCurrentInstance } from 'vue'
+
 export default defineComponent({
   name: 'index',
   setup: () => {
-    const msg = ref('')
-    return { msg }
-  }
+    const internalInstance = getCurrentInstance()
+    const msg = ref('msg')
+
+    const success = () => {
+      internalInstance.appContext.config.globalProperties.$message.success('This is a success message');
+    }
+
+    return {
+      msg,
+      success
+    }
+  },
 })
 </script>
 

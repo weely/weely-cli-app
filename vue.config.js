@@ -21,8 +21,8 @@ module.exports = {
   // filenameHashing: true,
   devServer: {
     host: 'localhost',
-    port: 3001,
-    // open: true,
+    // port: 3001,
+    open: true,
     overlay: {
       warnings: false,
       errors: true

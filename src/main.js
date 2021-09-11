@@ -1,8 +1,9 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import router from '@/router/index'
+import router from '@/router'
 import 'normalize.css'
 import '@/styles/common.scss';
-// import './middleware'
+import './middleware'
+import autUi from './ant-ui'
 
-createApp(App).use(router).mount('#app')
+createApp(App).use(autUi).use(router).mount('#app')

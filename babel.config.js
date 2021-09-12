@@ -3,13 +3,6 @@ module.exports = {
     '@vue/cli-plugin-babel/preset'
   ],
   "plugins": [
-    [
-      "import",
-      {
-        "libraryName": "ant-design-vue",
-        "styleLibraryName": "theme-chalk",
-        "style": true
-      }
-    ]
+    ["import", { "libraryName": "ant-design-vue", "libraryDirectory": "es", "style": "css" }]
   ]
 }

@@ -1,15 +1,14 @@
 <template>
   <div class="main-page">
     <h4>首页</h4>
-    <p>{{ msg }}</p>
     <a-button @click="success">Success</a-button>
   </div>
 </template>
 
 <script>
-import { ref, defineComponent, getCurrentInstance } from 'vue'
+import { ref, getCurrentInstance } from 'vue'
 
-export default defineComponent({
+export default {
   name: 'index',
   setup: () => {
     const internalInstance = getCurrentInstance()
@@ -24,7 +23,7 @@ export default defineComponent({
       success
     }
   },
-})
+}
 </script>
 
 <style lang="scss" scoped>

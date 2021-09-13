@@ -1,11 +1,9 @@
 <template>
   <a-breadcrumb class="app-breadcrumb" separator="/">
-    <transition-group name="breadcrumb">
-      <a-breadcrumb-item v-for="(item,index) in levelList" :key="item.path">
-        <span v-if="item.redirect==='noRedirect'||index==levelList.length-1" class="no-redirect">{{ item.meta.title }}</span>
-        <a v-else @click.prevent="handleLink(item)">{{ item.meta.title }}</a>
-      </a-breadcrumb-item>
-    </transition-group>
+    <a-breadcrumb-item v-for="(item,index) in levelList" :key="item.path">
+      <span v-if="item.redirect==='noRedirect'||index==levelList.length-1" class="no-redirect">{{ item.meta.title }}</span>
+      <a v-else @click.prevent="handleLink(item)">{{ item.meta.title }}</a>
+    </a-breadcrumb-item>
   </a-breadcrumb>
 </template>
 
@@ -35,13 +33,13 @@ export default {
       let matched = this.$route.matched.filter(item => item.meta && item.meta.title)
       const first = matched[0]
 
-      if (!this.isDashboard(first)) {
-        matched = [{ path: '/dashboard', meta: { title: 'Dashboard' }}].concat(matched)
+      if (!this.isMain(first)) {
+        matched = [{ path: '/', meta: { title: '首页' }}].concat(matched)
       }
 
       this.levelList = matched.filter(item => item.meta && item.meta.title && item.meta.breadcrumb !== false)
     },
-    isDashboard(route) {
+    isMain(route) {
       const name = route && route.name
       if (!name) {
         return false

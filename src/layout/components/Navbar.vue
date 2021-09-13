@@ -2,7 +2,7 @@
   <div class="navbar">
     <hamburger id="hamburger-container" :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
 
-    <!-- <breadcrumb id="breadcrumb-container" class="breadcrumb-container" /> -->
+    <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
 
     <div class="right-menu">
       <search id="header-search" class="right-menu-item" />
@@ -19,7 +19,7 @@
         <a-dropdown :trigger="['click']">
           <div class="avatar-wrapper">
             <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
-            <i class="a-icon-caret-bottom" />
+            <DownOutlined />
           </div>
           <template #overlay>
             <a-menu>
@@ -41,18 +41,20 @@
 </template>
 
 <script>
-// import Breadcrumb from '@/components/Breadcrumb'
+import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
 import SizeSelect from '@/components/SizeSelect'
 import Search from '@/components/HeaderSearch'
+import { DownOutlined } from '@ant-design/icons-vue'
 import { mapGetters } from 'vuex'
 
 export default {
   components: {
-    // Breadcrumb,
+    Breadcrumb,
     Hamburger,
     SizeSelect,
-    Search
+    Search,
+    DownOutlined
   },
   computed: {
     ...mapGetters([
@@ -95,6 +97,10 @@ export default {
 
   .breadcrumb-container {
     float: left;
+    // display: inline-block;
+    font-size: 14px;
+    line-height: 50px;
+    margin-left: 8px;
   }
 
   .right-menu {
@@ -132,9 +138,9 @@ export default {
 
         .user-avatar {
           cursor: pointer;
-          width: 40px;
-          height: 40px;
-          border-radius: 10px;
+          width: 36px;
+          height: 36px;
+          border-radius: 36px;
         }
 
         .a-icon-caret-bottom {

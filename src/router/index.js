@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Layout from '@/layout'
 
-const routes = [
+export const constantRoutes = [
   {
     path: '/',
     component: Layout,
@@ -38,9 +38,17 @@ const routes = [
   }
 ]
 
+export const asyncRoutes = [
+  {
+    path: '/test2',
+    component: () => import('@/views/test'),
+    hidden: true
+  },
+]
+
 const router = createRouter({
   history: createWebHashHistory(),
-  routes,
+  routes: constantRoutes,
   scrollBehavior(to, from, savedPosition) {
     return savedPosition ? savedPosition : { left: 0, top: 0 }
   },

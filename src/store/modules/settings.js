@@ -1,17 +1,22 @@
 import defaultConfig from '@/config'
+import variables from '@/styles/theme-variables.scss'
 
 const { showSettings, fixedHeader, sidebarLogo } = defaultConfig
 
+console.log('variables', variables)
+
 // 系统设置
 const state = {
+  theme: variables.theme,
   showSettings: showSettings,
   fixedHeader: fixedHeader,
-  sidebarLogo: sidebarLogo
+  sidebarLogo: sidebarLogo,
 }
 
 const mutations = {
   CHANGE_SETTING: (state, { key, value }) => {
-    if (state.hasOwnProperty(key)) {
+    const stateKeys = Object.keys(state)
+    if (stateKeys.includes(key)) {
       state[key] = value
     }
   }

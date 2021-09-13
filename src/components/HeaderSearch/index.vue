@@ -1,25 +1,28 @@
 <template>
-  <div :class="{'show':show}" class="header-search">
+  <div :class="{'show':show}" class="header-search" @click.stop>
     <svg-icon class-name="search-icon" icon-class="search" @click.stop="click" />
     <a-select
       ref="headerSearchSelect"
-      v-model="search"
-      :remote-method="querySearch"
-      filterable
-      default-first-option
-      remote
+      v-model:value="search"
+      show-search
+      filterOption
       placeholder="Search"
       class="header-search-select"
+      @search="querySearch"
       @change="change"
+      @click.stop
+      :dropdownMenuStyle="{background:'blue'}"
     >
-      <a-select-option v-for="item in options" :key="item.path" :value="item" :label="item.title.join(' > ')" />
+      <a-select-option v-for="item in options" :key="item.path" :value="item" :title="item.title.join(' > ')" @click.stop />
+      <template #notFoundContent>
+        <a-empty @click.stop />
+      </template>
     </a-select>
   </div>
 </template>
 
 <script>
-// fuse is a lightweight fuzzy-search module
-// make search results more in line with expectations
+
 import Fuse from 'fuse.js'
 import path from 'path'
 

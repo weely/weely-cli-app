@@ -6,14 +6,15 @@
         <navbar />
       </div>
       <app-main />
-      <!-- <right-panel v-if="showSettings">
+      <right-panel v-if="showSettings">
         <settings />
-      </right-panel> -->
+      </right-panel>
     </div>
   </div>
 </template>
 
 <script>
+import RightPanel from '@/components/RightPanel'
 import { AppMain, Navbar, Settings, Sidebar } from './components'
 import { mapState } from 'vuex'
 
@@ -22,8 +23,9 @@ export default {
   components: {
     AppMain,
     Navbar,
+    RightPanel,
     Settings,
-    Sidebar,
+    // Sidebar
   },
   computed: {
     ...mapState({
@@ -69,7 +71,7 @@ export default {
     top: 0;
     right: 0;
     z-index: 9;
-    width: calc(100% - #{$sideBarWidth});
+    width: calc(100% - #{$sidebar-width});
     transition: width 0.28s;
   }
 

@@ -5,12 +5,12 @@
 
       <div class="drawer-item">
         <span>Fixed Header</span>
-        <el-switch v-model="fixedHeader" class="drawer-switch" />
+        <a-switch v-model:checked="fixedHeader" class="drawer-switch" />
       </div>
 
       <div class="drawer-item">
         <span>Sidebar Logo</span>
-        <el-switch v-model="sidebarLogo" class="drawer-switch" />
+        <a-switch v-model:checked="sidebarLogo" class="drawer-switch" />
       </div>
 
     </div>

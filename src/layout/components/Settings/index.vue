@@ -4,12 +4,12 @@
       <h3 class="drawer-title">Page style setting</h3>
 
       <div class="drawer-item">
-        <span>Fixed Header</span>
+        <span>固定Header</span>
         <a-switch v-model:checked="fixedHeader" class="drawer-switch" />
       </div>
 
       <div class="drawer-item">
-        <span>Sidebar Logo</span>
+        <span>侧边栏图标</span>
         <a-switch v-model:checked="sidebarLogo" class="drawer-switch" />
       </div>
 

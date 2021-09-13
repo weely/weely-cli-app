@@ -2,7 +2,7 @@
   <div ref="rightPanel" :class="{show:show}" class="rightPanel-container">
     <div class="rightPanel-background"></div>
     <div class="rightPanel">
-      <div class="handle-button" :style="{'top':buttonTop+'px','background-color':theme}" @click="show=!show">
+      <div class="handle-button" :style="{'top':buttonTop+'px','background-color':theme}" @click.stop.prevent="show=!show">
         <CloseOutlined v-if="show" />
         <SettingOutlined v-else />
       </div>

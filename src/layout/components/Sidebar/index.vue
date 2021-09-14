@@ -4,8 +4,9 @@
     <div wrap-class="scrollbar-wrapper">
       <a-menu
         :default-selected-keys="activeMenu"
-        :inline-collapsed="isCollapse"
+        :default-open-keys="activeMenu"
         v-model:selectedKeys="selectedKeys"
+        :inline-collapsed="isCollapse"
         mode="inline"
         theme="dark"
         :style="styleObj"

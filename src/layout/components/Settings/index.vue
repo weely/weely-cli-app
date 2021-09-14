@@ -18,37 +18,44 @@
 </template>
 
 <script>
+import { defineComponent, computed } from 'vue'
+import { useStore } from 'vuex'
 
-export default {
-  components: { },
-  data() {
-    return {}
-  },
-  computed: {
-    fixedHeader: {
+export default defineComponent({
+  name: 'Settings',
+  setup() {
+    const store = useStore()
+
+    const fixedHeader = computed({
       get() {
-        return this.$store.state.settings.fixedHeader
+        return store.state.settings.fixedHeader
       },
       set(val) {
-        this.$store.dispatch('settings/changeSetting', {
+        store.dispatch('settings/changeSetting', {
           key: 'fixedHeader',
           value: val
         })
       }
-    },
-    sidebarLogo: {
+    })
+
+    const sidebarLogo = computed({
       get() {
-        return this.$store.state.settings.sidebarLogo
+        return store.state.settings.sidebarLogo
       },
       set(val) {
-        this.$store.dispatch('settings/changeSetting', {
+        store.dispatch('settings/changeSetting', {
           key: 'sidebarLogo',
           value: val
         })
       }
+    })
+
+    return {
+      fixedHeader,
+      sidebarLogo
     }
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>

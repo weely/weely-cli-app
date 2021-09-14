@@ -9,15 +9,20 @@
 </template>
 
 <script>
+import { defineComponent, computed } from 'vue'
+import { useRoute } from 'vue-router'
 
-export default {
+export default defineComponent({
   name: 'AppMain',
-  computed: {
-    key() {
-      return this.$route.path
+  setup() {
+    const router = useRoute()
+    const key = computed(() => router.path)
+
+    return {
+      key
     }
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>

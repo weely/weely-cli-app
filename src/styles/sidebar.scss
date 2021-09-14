@@ -63,8 +63,8 @@
       color: $subMenuActiveText !important;
     }
 
-    & .nest-menu .a-submenu>.el-submenu__title,
-    & .a-submenu .a-menu-item {
+    & .nest-menu .ant-submenu>.ant-submenu__title,
+    & .ant-submenu .ant-menu-item {
       min-width: $sideBarWidth !important;
       background-color: $subMenuBg !important;
 

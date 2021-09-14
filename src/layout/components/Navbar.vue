@@ -16,7 +16,7 @@
       </div>
 
       <div class="avatar-container right-menu-item hover-effect" >
-        <a-dropdown :trigger="['click']">
+        <a-dropdown :trigger="['click']" placement="bottomCenter">
           <div class="avatar-wrapper">
             <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
             <DownOutlined />

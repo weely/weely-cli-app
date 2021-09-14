@@ -1,7 +1,7 @@
 <template>
   <div class="drawer-container">
     <div>
-      <h3 class="drawer-title">Page style setting</h3>
+      <h3 class="drawer-title">系统样式设置</h3>
 
       <div class="drawer-item">
         <span>固定Header</span>
@@ -63,6 +63,7 @@ export default {
     color: rgba(0, 0, 0, .85);
     font-size: 14px;
     line-height: 22px;
+    font-weight: bold;
   }
 
   .drawer-item {

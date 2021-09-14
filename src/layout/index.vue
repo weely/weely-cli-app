@@ -1,6 +1,6 @@
 <template>
   <div :class="classObj" class="app-wrapper">
-    <!-- <sidebar class="sidebar-container" /> -->
+    <sidebar class="sidebar-container" />
     <div class="main-container">
       <div :class="{'fixed-header':fixedHeader}">
         <navbar />
@@ -25,7 +25,7 @@ export default {
     Navbar,
     RightPanel,
     Settings,
-    // Sidebar
+    Sidebar
   },
   computed: {
     ...mapState({
@@ -71,7 +71,7 @@ export default {
     top: 0;
     right: 0;
     z-index: 9;
-    width: calc(100% - #{$sidebar-width});
+    width: calc(100% - #{$sideBarWidth});
     transition: width 0.28s;
   }
 

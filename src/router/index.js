@@ -3,16 +3,43 @@ import Layout from '@/layout'
 
 export const constantRoutes = [
   {
+    path: '/dashboard',
+    component: Layout,
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/dashboard/index'),
+        name: 'dashboard',
+        meta: { title: '仪表盘', icon: 'dashboard', affix: true }
+      }
+    ]
+  },
+  {
     path: '/',
     component: Layout,
+    name: 'main',
+    meta: { title: '首页', icon: 'dashboard', affix: true },
     redirect: '/index',
     children: [
       {
         path: 'index',
         component: () => import('@/views/index/index'),
-        name: '首页',
-        meta: { title: '首页', icon: 'dashboard', affix: true }
-      }
+        name: 'main',
+        meta: { title: '首页1',  }
+      },
+      {
+        path: 'test',
+        component: () => import('@/views/test'),
+        name: 'test1',
+        meta: { title: 'DEMO1' }
+      },
+      {
+        path: 'test2',
+        component: () => import('@/views/test'),
+        name: 'test2',
+        meta: { title: 'DEMO2' },
+        hidden: true
+      },
     ]
   },
   {

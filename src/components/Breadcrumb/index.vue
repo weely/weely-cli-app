@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import pathToRegexp from 'path-to-regexp'
+import { pathToRegexp, compile } from 'path-to-regexp'
 
 export default {
   data() {
@@ -29,26 +29,27 @@ export default {
   },
   methods: {
     getBreadcrumb() {
-      // only show routes with meta.title
+      // 有 meta.title 才显示路由
       let matched = this.$route.matched.filter(item => item.meta && item.meta.title)
       const first = matched[0]
 
-      if (!this.isMain(first)) {
-        matched = [{ path: '/', meta: { title: '首页' }}].concat(matched)
+      if (!this.isDashboard(first)) {
+        matched = [{ path: '/dashboard', meta: { title: '仪表盘' }}].concat(matched)
       }
 
       this.levelList = matched.filter(item => item.meta && item.meta.title && item.meta.breadcrumb !== false)
     },
-    isMain(route) {
+    isDashboard(route) {
       const name = route && route.name
       if (!name) {
         return false
       }
-      return name.trim().toLocaleLowerCase() === 'Dashboard'.toLocaleLowerCase()
+      return name.trim().toLocaleLowerCase() === 'dashboard'
     },
     pathCompile(path) {
       const { params } = this.$route
-      var toPath = pathToRegexp.compile(path)
+      var toPath = compile(path , { encode: encodeURIComponent })
+
       return toPath(params)
     },
     handleLink(item) {

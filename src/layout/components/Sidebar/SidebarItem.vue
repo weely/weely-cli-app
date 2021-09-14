@@ -2,16 +2,24 @@
   <div v-if="!item.hidden" class="menu-wrapper">
     <template v-if="hasOneShowingChild(item.children,item) && (!onlyOneChild.children||onlyOneChild.noShowingChildren)&&!item.alwaysShow">
       <app-link v-if="onlyOneChild.meta" :to="resolvePath(onlyOneChild.path)">
-        <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{'submenu-title-noDropdown':!isNest}">
-          <item :icon="onlyOneChild.meta.icon||(item.meta&&item.meta.icon)" :title="onlyOneChild.meta.title" />
-        </el-menu-item>
+        <a-menu-item
+          :key="resolvePath(onlyOneChild.path)"
+          :class="{'submenu-title-noDropdown':!isNest}">
+          <template #icon>
+            <svg-icon v-if="onlyOneChild.meta.icon||(item.meta&&item.meta.icon)" :icon-class="onlyOneChild.meta.icon||(item.meta&&item.meta.icon)" />
+          </template>
+          {{ onlyOneChild.meta.title }}
+        </a-menu-item>
       </app-link>
     </template>
 
-    <el-submenu v-else ref="subMenu" :index="resolvePath(item.path)" popper-append-to-body>
-      <template slot="title">
-        <item v-if="item.meta" :icon="item.meta && item.meta.icon" :title="item.meta.title" />
-      </template>
+    <a-sub-menu v-else ref="subMenu" :key="resolvePath(item.path)" popper-append-to-body>
+        <template #icon>
+          <svg-icon v-if="item.meta && item.meta.icon" :icon-class="item.meta && item.meta.icon" />
+        </template>
+        <template #title>
+          <span v-if="item.meta">{{item.meta.title}}</span>
+        </template>
       <sidebar-item
         v-for="child in item.children"
         :key="child.path"
@@ -20,20 +28,19 @@
         :base-path="resolvePath(child.path)"
         class="nest-menu"
       />
-    </el-submenu>
+    </a-sub-menu>
   </div>
 </template>
 
 <script>
 import path from 'path'
 import { isExternal } from '@/utils/validate'
-import Item from './Item'
 import AppLink from './Link'
 import FixiOSBug from './FixiOSBug'
 
 export default {
   name: 'SidebarItem',
-  components: { Item, AppLink },
+  components: { AppLink },
   mixins: [FixiOSBug],
   props: {
     // route object

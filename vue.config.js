@@ -33,7 +33,8 @@ module.exports = {
     loaderOptions: {
       sass: {
         implementation: require('sass'), // This line must in sass option
-      },
+        // additionalData: `@import "~@/styles/variables.scss"`
+      }
     },
   },
   configureWebpack: {

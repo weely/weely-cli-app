@@ -1,27 +1,24 @@
 <template>
   <div class="main-page">
-    <h4>首页</h4>
-    <a-button @click="success">Success</a-button>
+    dashboard
+    <a-button @click="success">click</a-button>
   </div>
 </template>
 
 <script>
-import { ref, getCurrentInstance } from 'vue'
+import { getCurrentInstance } from 'vue'
 
 export default {
-  name: 'index',
+  name: 'dashboard',
   setup: () => {
     const internalInstance = getCurrentInstance()
     const $message = internalInstance.appContext.config.globalProperties.$message
-
-    const msg = ref('msg')
 
     const success = () => {
       $message.success('This is a success message');
     }
 
     return {
-      msg,
       success
     }
   },

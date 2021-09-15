@@ -15,8 +15,8 @@ import { useRoute } from 'vue-router'
 export default defineComponent({
   name: 'AppMain',
   setup() {
-    const router = useRoute()
-    const key = computed(() => router.path)
+    const route = useRoute()
+    const key = computed(() => route.path)
 
     return {
       key

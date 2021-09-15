@@ -1,5 +1,5 @@
 <template>
-  <div ref="rightPanel" :class="{show:show}" class="rightPanel-container">
+  <div ref="rightPanelRef" :class="{show:show}" class="rightPanel-container">
     <div class="rightPanel-background"></div>
     <div class="rightPanel">
       <div class="handle-button" :style="{'top':buttonTop+'px','background-color':theme}" @click.stop.prevent="show=!show">
@@ -14,10 +14,12 @@
 </template>
 
 <script>
+import { defineComponent, ref, toRefs, computed, watch, onMounted } from 'vue'
+import { useStore } from 'vuex'
 import { addClass, removeClass } from '@/utils'
 import { SettingOutlined, CloseOutlined } from '@ant-design/icons-vue'
 
-export default {
+export default defineComponent({
   name: 'RightPanel',
   props: {
     clickNotClose: {
@@ -32,53 +34,55 @@ export default {
   components: {
     SettingOutlined, CloseOutlined
   },
-  data() {
-    return {
-      show: false
+  setup(props){
+    const { clickNotClose } = toRefs(props)
+    const store = useStore()
+    const rightPanelRef = ref(null);
+
+    const show = ref(false)
+    const theme = computed(() => store.state.settings.theme)
+    const closeSidebar = function (evt) {
+      const parent = evt.target.closest('.rightPanel')
+      if (!parent) {
+        show.value = false
+        window.removeEventListener('click', closeSidebar)
+      }
     }
-  },
-  computed: {
-    theme() {
-      return this.$store.state.settings.theme
+    const addEventClick = function () {
+      window.addEventListener('click', closeSidebar)
     }
-  },
-  watch: {
-    show(value) {
-      if (value && !this.clickNotClose) {
-        this.addEventClick()
+
+    watch(show, (value) => {
+      if (value && !clickNotClose.value) {
+        addEventClick()
       }
       if (value) {
         addClass(document.body, 'showRightPanel')
       } else {
         removeClass(document.body, 'showRightPanel')
       }
-    }
-  },
-  mounted() {
-    this.insertToBody()
-  },
-  unmounted() {
-    const elx = this.$refs.rightPanel
-    elx.remove()
-  },
-  methods: {
-    addEventClick() {
-      window.addEventListener('click', this.closeSidebar)
-    },
-    closeSidebar(evt) {
-      const parent = evt.target.closest('.rightPanel')
-      if (!parent) {
-        this.show = false
-        window.removeEventListener('click', this.closeSidebar)
-      }
-    },
-    insertToBody() {
-      const elx = this.$refs.rightPanel
+    })
+    
+    const insertToBody = function () {
+      const elx = rightPanelRef.value
       const body = document.querySelector('body')
       body.insertBefore(elx, body.firstChild)
     }
+    onMounted(() => {
+      insertToBody()
+    })
+    return {
+      rightPanelRef,
+      show,
+      theme,
+      insertToBody
+    }
+  },
+  unmounted() {
+    const elx = this.$refs.rightPanelRef
+    elx.remove()
   }
-}
+})
 </script>
 
 <style>

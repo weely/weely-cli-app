@@ -18,38 +18,42 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      sizeOptions: [
-        { label: 'Default', value: 'default' },
-        { label: 'Medium', value: 'medium' },
-        { label: 'Small', value: 'small' },
-        { label: 'Mini', value: 'mini' }
-      ]
-    }
-  },
-  computed: {
-    size() {
-      return this.$store.getters.size
-    }
-  },
-  methods: {
-    handleSetSize({key}) {
-      this.$store.dispatch('app/setSize', key)
-      this.refreshView()
-      this.$message.success('切换尺寸成功')
-    },
-    refreshView() {
-      const { fullPath } = this.$route
+import { defineComponent, readonly, computed, nextTick, getCurrentInstance } from 'vue'
+import { useStore } from 'vuex'
+import { useRouter, useRoute } from 'vue-router'
 
-      this.$nextTick(() => {
-        this.$router.replace({
-          path: '/redirect' + fullPath
-        })
+export default defineComponent({
+  setup () {
+    const store = useStore()
+    const route = useRoute()
+    const router = useRouter()
+    const internalInstance = getCurrentInstance()
+    const $message = internalInstance.appContext.config.globalProperties.$message
+
+    const sizeOptions = readonly([
+      { label: '默认', value: 'default' },
+      { label: '中等', value: 'medium' },
+      { label: '小型', value: 'small' },
+      { label: '迷你', value: 'mini' }
+    ])
+    const size = computed(() => store.getters.size)
+    const refreshView = function () {
+      const { fullPath } = route
+      nextTick(() => {
+        router.replace({ path: '/redirect' + fullPath })
       })
     }
-  }
+    const handleSetSize = function ({key}) {
+      store.dispatch('app/setSize', key)
+      refreshView()
+      $message.success('切换尺寸成功')
+    }
 
-}
+    return {
+      sizeOptions,
+      size,
+      handleSetSize,
+    }
+  }
+})
 </script>

@@ -9,59 +9,61 @@
 
 <script>
 import { compile } from 'path-to-regexp'
+import { defineComponent, ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
-export default {
-  data() {
-    return {
-      levelList: null
+export default defineComponent({
+  setup(){
+    const route = useRoute()
+    const router = useRouter()
+    const levelList = ref(null)
+    // methods
+    const isDashboard = function(route) {
+      const name = route && route.name
+
+      return name && name.trim().toLocaleLowerCase() === 'dashboard'
     }
-  },
-  watch: {
-    $route(route) {
-      if (route.path.startsWith('/redirect/')) {
+    const getBreadcrumb = function () {
+      // 有 meta.title 才显示路由
+      let matched = route.matched.filter(item => item.meta && item.meta.title)
+      const first = matched[0]
+
+      if (!isDashboard(first)) {
+        matched = [{ path: '/dashboard', meta: { title: '仪表盘' }}].concat(matched)
+      }
+
+      levelList.value = matched.filter(item => item.meta && item.meta.title && item.meta.breadcrumb !== false)
+    }
+    const pathCompile = function (path) {
+      const { params } = route
+      var toPath = compile(path , { encode: encodeURIComponent })
+
+      return toPath(params)
+    }
+    const handleLink = function (item) {
+      const { redirect, path } = item
+      if (redirect) {
+        router.push(redirect)
         return
       }
-      this.getBreadcrumb()
+      router.push(pathCompile(path))
+    }
+    // watch
+    watch(route, (val) => {
+      if (val.path.startsWith('/redirect/')) return
+      getBreadcrumb()
+    })
+
+    return {
+      levelList,
+      getBreadcrumb,
+      handleLink
     }
   },
   created() {
     this.getBreadcrumb()
-  },
-  methods: {
-    getBreadcrumb() {
-      // 有 meta.title 才显示路由
-      let matched = this.$route.matched.filter(item => item.meta && item.meta.title)
-      const first = matched[0]
-
-      if (!this.isDashboard(first)) {
-        matched = [{ path: '/dashboard', meta: { title: '仪表盘' }}].concat(matched)
-      }
-
-      this.levelList = matched.filter(item => item.meta && item.meta.title && item.meta.breadcrumb !== false)
-    },
-    isDashboard(route) {
-      const name = route && route.name
-      if (!name) {
-        return false
-      }
-      return name.trim().toLocaleLowerCase() === 'dashboard'
-    },
-    pathCompile(path) {
-      const { params } = this.$route
-      var toPath = compile(path , { encode: encodeURIComponent })
-
-      return toPath(params)
-    },
-    handleLink(item) {
-      const { redirect, path } = item
-      if (redirect) {
-        this.$router.push(redirect)
-        return
-      }
-      this.$router.push(this.pathCompile(path))
-    }
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>

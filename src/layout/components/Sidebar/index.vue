@@ -26,6 +26,7 @@ import SidebarItem from './SidebarItem'
 import variables from '@/styles/variables.scss'
 
 export default defineComponent({
+  name: 'Sidebar',
   components: { SidebarItem, Logo },
   setup() {
     const store = useStore()

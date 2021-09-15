@@ -51,19 +51,11 @@
       width: 100% !important;
     }
 
-    // menu hover
-    .submenu-title-noDropdown,
-    .ant-submenu__title {
-      &:hover {
-        background-color: $menuHover !important;
-      }
-    }
-
-    .is-active>.a-submenu__title {
+    .ant-menu-item-selected>.ant-menu-title-content {
       color: $subMenuActiveText !important;
     }
 
-    & .nest-menu .ant-submenu>.ant-submenu__title,
+    & .nest-menu .ant-submenu>.ant-menu-title-content,
     & .ant-submenu .ant-menu-item {
       min-width: $sideBarWidth !important;
       background-color: $subMenuBg !important;
@@ -99,7 +91,7 @@
     .ant-submenu {
       overflow: hidden;
 
-      &>.ant-submenu__title {
+      &>.ant-menu-title-content {
         padding: 0 !important;
 
         .svg-icon {
@@ -112,9 +104,22 @@
       }
     }
 
-    .ant-menu--collapse {
-      .ant-submenu {
-        &>.ant-submenu__title {
+    .ant-menu-inline-collapsed {
+      .ant-menu-submenu-title {
+        >.ant-menu-submenu-arrow {
+          opacity: 0;
+        }
+      }
+      .ant-menu-item,
+      .ant-menu-submenu-title,
+      .submenu-title-noDropdown {
+        padding: 0 calc(50% - 16px / 2) !important;
+        text-overflow: clip;
+      }
+      .ant-submenu,
+      .ant-menu-submenu-title,
+      .ant-menu-item {
+        &>.ant-menu-title-content {
           &>span {
             height: 0;
             width: 0;
@@ -127,7 +132,7 @@
     }
   }
 
-  .ant-menu--collapse .ant-menu .ant-submenu {
+  .ant-menu-inline-collapsed .ant-menu .ant-submenu {
     min-width: $sideBarWidth !important;
   }
 
@@ -165,14 +170,6 @@
   &>.ant-menu {
     .svg-icon {
       margin-right: 16px;
-    }
-  }
-
-  .nest-menu .ant-submenu>.ant-submenu__title,
-  .ant-menu-item {
-    &:hover {
-      // you can use $subMenuHover
-      background-color: $menuHover !important;
     }
   }
 

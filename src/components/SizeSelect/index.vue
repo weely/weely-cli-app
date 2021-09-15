@@ -23,6 +23,7 @@ import { useStore } from 'vuex'
 import { useRouter, useRoute } from 'vue-router'
 
 export default defineComponent({
+  name: 'SizeSelect',
   setup () {
     const store = useStore()
     const route = useRoute()

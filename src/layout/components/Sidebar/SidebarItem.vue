@@ -8,7 +8,7 @@
           <template #icon>
             <svg-icon v-if="onlyOneChild.meta.icon||(item.meta&&item.meta.icon)" :icon-class="onlyOneChild.meta.icon||(item.meta&&item.meta.icon)" />
           </template>
-          {{ onlyOneChild.meta.title }}
+          <span>{{ onlyOneChild.meta.title }}</span>
         </a-menu-item>
       </app-link>
     </template>

@@ -1,6 +1,4 @@
 
-console.log('---window---', window)
-
 window.addEventListener('keydown', (e) => {
   console.log('----e----', e)
   const { altKey, ctrlKey, metaKey, key } = e

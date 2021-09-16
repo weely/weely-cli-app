@@ -16,6 +16,8 @@ async function createWindow() {
   const win = new BrowserWindow({
     width: 800,
     height: 600,
+    backgroundColor: '#2e2c29',
+    icon: 'public/favicon.ico',
     webPreferences: {
       
       // Use pluginOptions.nodeIntegration, leave this alone
@@ -36,6 +38,13 @@ async function createWindow() {
     win.loadURL('app://./index.html')
   }
 }
+
+app.on('login', (event, webContents, details, authInfo, callback) => {
+  event.preventDefault()
+  console.log('----details----', webContents)
+  console.log('----details----', details)
+  callback('username', 'secret')
+})
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {

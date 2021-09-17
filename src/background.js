@@ -17,7 +17,7 @@ async function createWindow() {
     width: 800,
     height: 600,
     backgroundColor: '#2e2c29',
-    icon: 'public/logo.icns',
+    icon: 'public/icon.png',
     webPreferences: {
       
       // Use pluginOptions.nodeIntegration, leave this alone

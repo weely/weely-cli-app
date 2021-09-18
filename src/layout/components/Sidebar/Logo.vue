@@ -14,7 +14,8 @@
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
+import { defineComponent, readonly } from 'vue'
+const logoPath = require('@/assets/logo.png')
 
 export default defineComponent({
   name: 'SidebarLogo',
@@ -25,8 +26,8 @@ export default defineComponent({
     }
   },
   setup() {
-    const title = ref('WEELY-CLI APP')
-    const logo = ref('https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png')
+    const title = readonly('WEELY-CLI APP')
+    const logo = readonly(logoPath)
 
     return {
       title,

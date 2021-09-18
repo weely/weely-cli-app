@@ -23,5 +23,9 @@ yarn lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
-### 使用淘宝镜像安装node-sass
-### npm i node-sass --sass_binary_site=https://npm.taobao.org/mirrors/node-sass/ -D
+
+https://www.electron.build/
+
+
+### 生成icon
+https://www.npmjs.com/package/@bung87/electron-icon-maker

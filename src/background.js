@@ -13,11 +13,12 @@ protocol.registerSchemesAsPrivileged([
 
 async function createWindow() {
   // Create the browser window.
+  const iconPath = process.platform !== 'darwin' ? 'public/icons/win/icon.ico' : 'public/icons/mac/icon.icns'
   const win = new BrowserWindow({
     width: 800,
     height: 600,
     backgroundColor: '#2e2c29',
-    icon: 'public/icon.png',
+    icon: iconPath,
     webPreferences: {
       
       // Use pluginOptions.nodeIntegration, leave this alone

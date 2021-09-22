@@ -8,8 +8,8 @@
           list-type="picture-card"
           class="avatar-uploader"
           :show-upload-list="false"
-          action=""
           :before-upload="beforeUpload"
+          :customRequest="customRequest"
           @change="handleChange"
         >
           <img v-if="imageUrl" :src="imageUrl" alt="avatar" />
@@ -46,9 +46,6 @@ export default {
     const fileList = ref([]);
     const loading = ref(false)
     const imageUrl = ref('');
-    const previewImage = ref('');
-    const previewVisible  = ref(false);
-
     
     const beforeUpload = (file) => {
       const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
@@ -63,7 +60,7 @@ export default {
     }
 
     const handleChange = (info) => {
-      console.log('---start---')
+      console.log('---start---', info)
 
       if (info.file.status === 'uploading') {
         loading.value = true
@@ -86,25 +83,21 @@ export default {
       }
     }
 
-    const handlePreview = async (file) => {
-      console.log('---preview---')
+    const customRequest = async (file) => {
+      console.log('---preview---', file)
       if (!file.url && !file.preview) {
-        file.preview = await getBase64(file.originFileObj)
+        imageUrl.value = await getBase64(file.file)
+        loading.value = false
       }
-      previewImage.value = file.url || file.preview
-      previewVisible.value = true
     }
 
     return {
       loading,
       fileList,
       imageUrl,
-      headers: {
-        authorization: 'authorization-text',
-      },
       handleChange,
       beforeUpload,
-      handlePreview
+      customRequest
     }
   },
 }

@@ -1,9 +1,13 @@
+import { BrowserWindow } from 'electron'
+
 
 window.addEventListener('keydown', (e) => {
   console.log('----e----', e)
+  console.log('----e----', require('electron'))
+  console.log('----window.getFocusedWindow()----', window.getFocusedWindow())
   const { altKey, ctrlKey, metaKey, key } = e
   if (altKey && ctrlKey && metaKey && key.toLocaleLowerCase() === 'd') {
-    // const currentWindow = window.getFocusedWindow();
+    const currentWindow = window.getFocusedWindow();
     // currentWindow && currentWindow.webContents.openDevTools ();
     // BrowserWindow.webContents.openDevTools ()
     e.preventDefault();

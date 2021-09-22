@@ -7,10 +7,11 @@ import 'normalize.css'
 import '@/styles/common.scss';
 import './middleware'
 import SvgIcon from './icons' // icon
-
+import SysTitle from '@/components/SysTitle'
 
 createApp(App)
   .component('svg-icon', SvgIcon)
+  .component('sys-title', SysTitle)
   .use(autUi)
   .use(store)
   .use(router)

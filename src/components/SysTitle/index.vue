@@ -24,6 +24,7 @@ export default {
   font-weight: bold;
   font-size: 16px;
   line-height: 1.5;
+  margin-bottom: 16px;
 }
 
 .sys-title::before{

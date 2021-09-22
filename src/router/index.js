@@ -19,7 +19,7 @@ export const constantRoutes = [
     component: Layout,
     name: 'main',
     meta: { title: '首页', icon: 'component', affix: true },
-    redirect: '/index',
+    redirect: 'index',
     children: [
       {
         path: 'index',
@@ -46,14 +46,20 @@ export const constantRoutes = [
     path: '/tools',
     component: Layout,
     name: 'Tools',
-    meta: { title: '工具', icon: 'dashboard', affix: true },
-    redirect: '/index',
+    meta: { title: '工具', icon: 'tool', affix: true },
+    redirect: 'index',
     children: [
       {
         path: 'index',
         component: () => import('@/views/tools/index'),
         name: 'Tools',
-        meta: { title: '工具',  }
+        meta: { title: '工具', }
+      },
+      {
+        path: 'image-fillet',
+        component: () => import('@/views/tools/imageFillet'),
+        name: 'Tools',
+        meta: { title: '图片圆角处理', }
       }
     ]
   },
@@ -62,7 +68,7 @@ export const constantRoutes = [
     component: Layout,
     name: 'Icons',
     meta: { title: '图标', icon: 'icon', affix: true },
-    redirect: '/index',
+    redirect: 'index',
     children: [
       {
         path: 'index',

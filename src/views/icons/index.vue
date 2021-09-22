@@ -1,7 +1,7 @@
 <template>
   <div class="icons-page">
     <sys-title title="系统图标"></sys-title>
-    <p></p>
+    <p><a href="https://www.iconfont.cn/search/index?searchType=icon&q=%E5%B7%A5%E5%85%B7&page=1&tag=&fills=0" target="_blank">阿里矢量图库</a></p>
     <div class="icons-list-wrapper">
       <div class="icons-list">
         <div v-for="iconItem in iconList" :key="iconItem" class="icon-item">
@@ -18,11 +18,9 @@
 <script>
 import { ref, getCurrentInstance, readonly } from 'vue'
 import svgIcons from './svg-icons'
-import SysTitle from '@/components/SysTitle'
 
 export default {
   name: 'Icons',
-  components: { SysTitle },
   setup: () => {
     const internalInstance = getCurrentInstance()
     const $message = internalInstance.appContext.config.globalProperties.$message

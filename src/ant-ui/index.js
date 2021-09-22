@@ -8,6 +8,7 @@ import {
   Breadcrumb,
   Tooltip,
   Dropdown,
+  Upload,
   Empty,
   message
 } from 'ant-design-vue';
@@ -23,6 +24,7 @@ const autUi = {
     app.use(Breadcrumb);
     app.use(Tooltip);
     app.use(Dropdown);
+    app.use(Upload);
     app.use(Empty);
 
     app.config.globalProperties.$message = message;

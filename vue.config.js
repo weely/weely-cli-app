@@ -26,6 +26,16 @@ module.exports = {
     overlay: {
       warnings: false,
       errors: true
+    },
+    proxy: {
+      // 代理https://www.mocky.io 下的api
+      '/upload-api': {
+        target: 'https://www.mocky.io/',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/upload-api': 'v2'
+        }
+      },
     }
   },
   css: {

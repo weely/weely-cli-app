@@ -1,10 +1,12 @@
 import {
   Menu,
   Button,
+  Form,
   Radio,
   Checkbox,
   Switch,
   Select,
+  Input,
   Breadcrumb,
   Tooltip,
   Dropdown,
@@ -16,11 +18,13 @@ import {
 const autUi = {
   install:(app) => {
     app.use(Menu);
+    app.use(Form);
     app.use(Button);
     app.use(Radio);
     app.use(Checkbox);
     app.use(Switch);
     app.use(Select);
+    app.use(Input);
     app.use(Breadcrumb);
     app.use(Tooltip);
     app.use(Dropdown);

@@ -25,7 +25,7 @@
           :customRequest="customRequest"
           @change="handleChange"
         >
-          <canvas v-if="imageUrl" :src="imageUrl" alt="avatar" />
+          <canvas v-if="imageUrl" id="previewCanvas" alt="avatar" />
           <div v-else class="upload-icon">
             <loading-outlined v-if="loading"></loading-outlined>
             <upload-outlined v-else></upload-outlined>
@@ -48,6 +48,13 @@ function getBase64(file) {
     reader.onload = () => resolve(reader.result);
     reader.onerror = error => reject(error);
   })
+}
+
+function drawCircleImage(img, radius) {
+  const cv = document.getElementById('previewCanvas')
+  const ctx = cv.getContext("2d")
+
+  ctx.drawImage(img,10,10)
 }
 
 export default {
@@ -106,6 +113,7 @@ export default {
         img.src = imageUrl.value
         img.onload = function(){
           $message.info('width:'+img.width+',height:'+img.height)
+          drawCircleImage(img)
         }
 
         console.log('1--212-', imageUrl.value)

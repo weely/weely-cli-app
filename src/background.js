@@ -1,6 +1,6 @@
 'use strict'
 
-import { app, protocol, BrowserWindow, Menu } from 'electron'
+import { app, protocol, BrowserWindow, Menu, globalShortcut } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
 const isDevelopment = process.env.NODE_ENV !== 'production'
@@ -38,6 +38,27 @@ async function createWindow() {
     // Load the index.html when not in development
     win.loadURL('app://./index.html')
   }
+
+    // win.setThumbarButtons([
+  //   {
+  //     tooltip: 'button1',
+  //     icon: iconPath,
+  //     click () { console.log('button1 clicked') }
+  //   }
+  // ])
+
+  // win.once('focus', () => win.flashFrame(false))
+  // win.flashFrame(true)
+  
+  // 注册全局快捷键打开调试窗口
+  globalShortcut.register('Alt+CommandOrControl+I', () => {
+    if (win.webContents.isDevToolsOpened()) {
+      win.webContents.closeDevTools()
+    } else {
+      win.webContents.openDevTools()
+    }
+    console.log('Electron loves global shortcuts!')
+  })
 }
 
 const dockMenu = Menu.buildFromTemplate([

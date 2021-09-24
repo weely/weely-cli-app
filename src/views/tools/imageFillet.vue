@@ -25,7 +25,7 @@
           :customRequest="customRequest"
           @change="handleChange"
         >
-          <canvas v-if="imageUrl" id="previewCanvas" alt="avatar" />
+          <canvas v-if="imageUrl" id="previewCanvas" :width="canvasWidth" :height="canvasHeight" />
           <div v-else class="upload-icon">
             <loading-outlined v-if="loading"></loading-outlined>
             <upload-outlined v-else></upload-outlined>
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { ref, reactive, getCurrentInstance } from 'vue'
+import { ref, reactive, getCurrentInstance, nextTick } from 'vue'
 import { UploadOutlined, LoadingOutlined  } from '@ant-design/icons-vue';
 
 function getBase64(file) {
@@ -50,16 +50,23 @@ function getBase64(file) {
   })
 }
 
-function drawCircleImage(img, radius) {
-  const cv = document.getElementById('previewCanvas')
-  const ctx = cv.getContext("2d")
+function drawCircleImage(ctx, img, x, y, radius) {
+  const d = radius * 2
+  const cx = (+x + radius > d) ? x : (x + radius)
+  const cy = (+y + radius > d) ? y : (x + radius)
 
-  ctx.drawImage(img,10,10)
+  ctx.beginPath()
+  ctx.arc(cx, cy, radius, 0, 2*Math.PI)
+  ctx.strokeStyle = '#000000'
+  ctx.stroke()
+  ctx.clip()
+
+  ctx.drawImage(img, 0, 0, cx + radius, cy + radius)
 }
 
 export default {
   name: 'Tools',
-  components: { UploadOutlined, LoadingOutlined  },
+  components: { UploadOutlined, LoadingOutlined },
   setup: () => {
     const internalInstance = getCurrentInstance()
     const $message = internalInstance.appContext.config.globalProperties.$message
@@ -67,6 +74,9 @@ export default {
     const fileList = ref([])
     const loading = ref(false)
     const imageUrl = ref('')
+    const radius = ref(200)
+    const canvasWidth = ref(200)
+    const canvasHeight = ref(200)
     const formState = reactive({
       filletSize: 50,
       watermark: ''
@@ -78,7 +88,6 @@ export default {
         $message.error('仅支持JPG格式！')
       }
       const isLt2M = file.size / 1024 / 1024 < 2
-      console.log('--1--', file)
       if (!isLt2M) {
         $message.error('图片大小不能超过2MB！')
       }
@@ -106,18 +115,25 @@ export default {
     }
 
     const customRequest = async (file) => {
-      console.log('---preview---', file)
-      if (!file.url && !file.preview) {
-        imageUrl.value = await getBase64(file.file)
-        const img = new Image()
-        img.src = imageUrl.value
-        img.onload = function(){
-          $message.info('width:'+img.width+',height:'+img.height)
-          drawCircleImage(img)
-        }
+      loading.value = true
 
-        console.log('1--212-', imageUrl.value)
-        loading.value = false
+      imageUrl.value = await getBase64(file.file)
+      const img = new Image()
+      img.src = imageUrl.value
+      img.onload = function(){
+        $message.info('width:'+img.width+',height:'+img.height)
+
+        canvasWidth.value = img.width
+        canvasHeight.value = img.height
+        radius.value = Math.floor(Math.min(img.width, img.height) / 2 - 2)
+        
+        nextTick(() => {
+          const cv = document.getElementById('previewCanvas')
+          const ctx = cv.getContext("2d")
+
+          drawCircleImage(ctx, img, img.width/2, img.height / 2, radius.value)
+          loading.value = false
+        })
       }
     }
 
@@ -130,12 +146,15 @@ export default {
     }
 
     return {
+      radius,
       labelCol: { span: 2 },
       wrapperCol: { span: 4 },
       formState,
       loading,
       fileList,
       imageUrl,
+      canvasWidth,
+      canvasHeight,
       handleChange,
       beforeUpload,
       customRequest,
@@ -184,6 +203,10 @@ export default {
     color: #999;
   }
 
+  #previewCanvas {
+    max-width: 100%;
+    max-height: 100%;
+  }
   img, canvas {
     max-width: 100%;
     max-height: 100%;

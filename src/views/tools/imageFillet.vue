@@ -28,7 +28,7 @@
           <canvas v-if="imageUrl" id="previewCanvas" :width="canvasWidth" :height="canvasHeight" />
           <div v-else class="upload-icon">
             <loading-outlined v-if="loading"></loading-outlined>
-            <upload-outlined v-else></upload-outlined>
+            <inbox-outlined v-else></inbox-outlined>
             <div class="ant-upload-text">点击上传</div>
           </div>
         </a-upload>
@@ -39,7 +39,7 @@
 
 <script>
 import { ref, reactive, getCurrentInstance, nextTick } from 'vue'
-import { UploadOutlined, LoadingOutlined  } from '@ant-design/icons-vue';
+import { InboxOutlined, LoadingOutlined  } from '@ant-design/icons-vue';
 
 function getBase64(file) {
   return new Promise((resolve, reject) => {
@@ -66,7 +66,7 @@ function drawCircleImage(ctx, img, x, y, radius) {
 
 export default {
   name: 'Tools',
-  components: { UploadOutlined, LoadingOutlined },
+  components: { InboxOutlined, LoadingOutlined },
   setup: () => {
     const internalInstance = getCurrentInstance()
     const $message = internalInstance.appContext.config.globalProperties.$message
@@ -199,8 +199,13 @@ export default {
   float: none;
 
   .upload-icon {
-    font-size: 32px;
-    color: #999;
+    font-size: 48px;
+    color: #40a9ff;
+
+    .ant-upload-text {
+      color: #999;
+      font-size: 32px;
+    }
   }
 
   #previewCanvas {

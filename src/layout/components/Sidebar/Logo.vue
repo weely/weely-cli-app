@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { defineComponent, readonly } from 'vue'
+import { defineComponent, ref } from 'vue'
 const logoPath = require('@/assets/logo.png')
 
 export default defineComponent({
@@ -26,8 +26,8 @@ export default defineComponent({
     }
   },
   setup() {
-    const title = readonly('WEELY-CLI APP')
-    const logo = readonly(logoPath)
+    const title = ref('WEELY-CLI APP')
+    const logo = ref(logoPath)
 
     return {
       title,

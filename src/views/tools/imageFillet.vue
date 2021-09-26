@@ -194,7 +194,7 @@ export default {
   color: #666;
   width: 100%;
   max-width: 1200px;
-  min-height: 400px;
+  min-height: 360px;
   max-height: 840px;
   float: none;
 

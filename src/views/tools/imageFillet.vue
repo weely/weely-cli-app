@@ -23,7 +23,9 @@
           :show-upload-list="false"
           :before-upload="beforeUpload"
           :customRequest="customRequest"
+          :disabled="isDisabled"
           @change="handleChange"
+          title="点击上传图片"
         >
           <canvas v-if="imageUrl" id="previewCanvas" :width="canvasWidth" :height="canvasHeight" />
           <div v-else class="upload-icon">
@@ -57,11 +59,19 @@ function drawCircleImage(ctx, img, x, y, radius) {
 
   ctx.beginPath()
   ctx.arc(cx, cy, radius, 0, 2*Math.PI)
-  ctx.strokeStyle = '#000000'
+  ctx.strokeStyle = '#ffffff'
   ctx.stroke()
   ctx.clip()
 
   ctx.drawImage(img, 0, 0, cx + radius, cy + radius)
+
+  addWatermark(ctx, 'weely.cc', cx, cy, 100)
+}
+
+function addWatermark(ctx, text, x, y, maxWidth = 100) {
+  ctx.font="24px microsoft yahei"
+  ctx.fillStyle = "rgba(256,256,256,0.6)"
+  ctx.fillText(text, x, y, [maxWidth])
 }
 
 export default {
@@ -71,6 +81,7 @@ export default {
     const internalInstance = getCurrentInstance()
     const $message = internalInstance.appContext.config.globalProperties.$message
 
+    const isDisabled = ref(false)
     const fileList = ref([])
     const loading = ref(false)
     const imageUrl = ref('')
@@ -146,6 +157,7 @@ export default {
     }
 
     return {
+      isDisabled,
       radius,
       labelCol: { span: 2 },
       wrapperCol: { span: 4 },

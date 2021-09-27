@@ -2,10 +2,9 @@
 <div class="not-found-page">
     404，抱歉，您访问的资源不存在<a href="/">返回首页</a>
 </div>
-
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'NotFoundComponent',

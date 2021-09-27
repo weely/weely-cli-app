@@ -2,6 +2,7 @@
 
 ## 第一步：使用vue-cli4新建项目（选择vue3）
 `vue create electron-demo`
+> 补充说明：先全局安装vue-cli4, `npm install -g @vue/cli`,再执行上面命令
 
 ## 第二步：安装vue-cli-plugin-electron-builder，执行 `vue add electron-builder` 
 
@@ -23,6 +24,18 @@ const { default: installExtension, } = require('electron-devtools-installer')
 var vue_devtools_beta = { id: "ljjemllljcmogpfapbkkighbhhppjdbg", electron: ">=1.2.1" }
 var result = await installExtension(vue_devtools_beta)
 ```
+
+
+遇到的问题：
+## window10下命令行无法执行的问题：[参考文档](https://docs.microsoft.com/zh-cn/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.1)
+1. 管理员身份打开powershell,执行：`Get-ExecutionPolicy`查看当前系统的执行策略
+系统默认为***Restricted***
+2. 执行 `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned` 修改策略，调整为cmd可执行
+
+## 安装electron失败 postinstall: `node install.js`
+使用淘宝镜像安装electron: `npm config set electron_mirror https://npm.taobao.org/mirrors/electron/ `
+
+3、拉取代码install后无法启动的问题，可通过执行 `vue add electron-builder`重新安装依赖修复
 
 #### 参考文档：
 * [https://cli.vuejs.org/zh/guide/creating-a-project.html#vue-create](https://cli.vuejs.org/zh/guide/creating-a-project.html#vue-create)

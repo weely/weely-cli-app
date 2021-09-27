@@ -316,4 +316,4 @@ export default class Color {
       }
     }
   }
-};
+}

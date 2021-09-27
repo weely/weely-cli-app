@@ -9,6 +9,9 @@
         <a-form-item label="水印文字">
           <a-input v-model:value="formState.watermark" />
         </a-form-item>
+        <a-form-item label="颜色">
+          <el-color-picker v-model="formState.color" />
+        </a-form-item>
         <a-form-item>
           <a-button type="primary" style="margin-right: 12px;" @click="transferImage">图片转换</a-button>
           <a-button type="default" @click="downImage">图片下载</a-button>
@@ -42,6 +45,7 @@
 <script>
 import { ref, reactive, getCurrentInstance, nextTick } from 'vue'
 import { InboxOutlined, LoadingOutlined  } from '@ant-design/icons-vue';
+import { ElColorPicker } from 'element-plus'
 
 function getBase64(file) {
   return new Promise((resolve, reject) => {
@@ -76,7 +80,7 @@ function addWatermark(ctx, text, x, y, maxWidth = 100) {
 
 export default {
   name: 'Tools',
-  components: { InboxOutlined, LoadingOutlined },
+  components: { InboxOutlined, LoadingOutlined, ElColorPicker },
   setup: () => {
     const internalInstance = getCurrentInstance()
     const $message = internalInstance.appContext.config.globalProperties.$message
@@ -90,7 +94,8 @@ export default {
     const canvasHeight = ref(200)
     const formState = reactive({
       filletSize: 50,
-      watermark: ''
+      watermark: '',
+      color: '#409EFF'
     });
     
     const beforeUpload = (file) => {
@@ -201,7 +206,7 @@ export default {
   }
 }
 
-::v-deep .ant-upload.ant-upload-select-picture-card {
+:deep .ant-upload.ant-upload-select-picture-card {
   margin: 20px auto;
   color: #666;
   width: 100%;

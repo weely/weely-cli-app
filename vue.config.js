@@ -50,10 +50,15 @@ module.exports = {
   configureWebpack: {
     resolve: {
       alias: {
-        '@': resolve('src') 
+        '@': resolve('src')
       },
     },
-    devtool: 'source-map'
+    devtool: 'source-map',
+    plugins: [
+      require('unplugin-element-plus/webpack')({
+        // options
+      }),
+    ],
   },
   chainWebpack(config) {
     config.module

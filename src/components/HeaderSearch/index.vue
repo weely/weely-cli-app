@@ -162,7 +162,7 @@ export default {
     display: inline-block;
     vertical-align: middle;
 
-    ::v-deep .a-input__inner {
+    :deep .a-input__inner {
       border-radius: 0;
       border: 0;
       padding-left: 0;

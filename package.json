@@ -17,6 +17,7 @@
     "ant-design-vue": "^2.2.7",
     "axios": "^0.21.4",
     "core-js": "^3.6.5",
+    "element-plus": "^1.1.0-beta.17",
     "fuse.js": "^6.4.6",
     "js-cookie": "^3.0.1",
     "lodash": "^4.17.21",
@@ -43,7 +44,8 @@
     "sass": "^1.39.2",
     "sass-loader": "^10.2.0",
     "svg-sprite-loader": "^6.0.9",
-    "vue-cli-plugin-electron-builder": "^2.1.1"
+    "unplugin-element-plus": "^0.1.0",
+    "vue-cli-plugin-electron-builder": "~2.1.1"
   },
   "eslintConfig": {
     "root": true,

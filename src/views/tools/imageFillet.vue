@@ -6,11 +6,14 @@
         <a-form-item label="圆角尺寸">
           <a-input v-model:value="formState.filletSize" />
         </a-form-item>
-        <a-form-item label="水印文字">
+        <a-form-item label="水印文案">
           <a-input v-model:value="formState.watermark" />
         </a-form-item>
-        <a-form-item label="颜色">
-          <el-color-picker v-model="formState.color" />
+        <a-form-item label="水印颜色">
+          <el-color-picker v-model="formState.color" show-alpha size="small" />
+        </a-form-item>
+        <a-form-item label="字体角度">
+          <a-input v-model:value.number="formState.angle" />
         </a-form-item>
         <a-form-item>
           <a-button type="primary" style="margin-right: 12px;" @click="transferImage">图片转换</a-button>
@@ -27,7 +30,6 @@
           :before-upload="beforeUpload"
           :customRequest="customRequest"
           :disabled="isDisabled"
-          @change="handleChange"
           title="点击上传图片"
         >
           <canvas v-if="imageUrl" id="previewCanvas" :width="canvasWidth" :height="canvasHeight" />
@@ -46,37 +48,9 @@
 import { ref, reactive, getCurrentInstance, nextTick } from 'vue'
 import { InboxOutlined, LoadingOutlined  } from '@ant-design/icons-vue';
 import { ElColorPicker } from 'element-plus'
-
-function getBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
-  })
-}
-
-function drawCircleImage(ctx, img, x, y, radius) {
-  const d = radius * 2
-  const cx = (+x + radius > d) ? x : (x + radius)
-  const cy = (+y + radius > d) ? y : (x + radius)
-
-  ctx.beginPath()
-  ctx.arc(cx, cy, radius, 0, 2*Math.PI)
-  ctx.strokeStyle = '#ffffff'
-  ctx.stroke()
-  ctx.clip()
-
-  ctx.drawImage(img, 0, 0, cx + radius, cy + radius)
-
-  addWatermark(ctx, 'weely.cc', cx, cy, 100)
-}
-
-function addWatermark(ctx, text, x, y, maxWidth = 100) {
-  ctx.font="24px microsoft yahei"
-  ctx.fillStyle = "rgba(256,256,256,0.6)"
-  ctx.fillText(text, x, y, [maxWidth])
-}
+import { getBase64, drawCircleImage } from './utils'
+import { saveAs } from 'file-saver'
+import watermark from './watermark'
 
 export default {
   name: 'Tools',
@@ -94,9 +68,11 @@ export default {
     const canvasHeight = ref(200)
     const formState = reactive({
       filletSize: 50,
-      watermark: '',
-      color: '#409EFF'
+      watermark: 'weely.cc',
+      color: 'rgba(66, 65, 118, 0.36)',
+      angle: 45
     });
+    let cv, ctx;
     
     const beforeUpload = (file) => {
       const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
@@ -110,55 +86,75 @@ export default {
       return isJpgOrPng && isLt2M
     }
 
-    const handleChange = (info) => {
-      console.log('---start---', info)
-
-      if (info.file.status === 'uploading') {
-        console.log('---uploading---')
-        loading.value = true
-        return
-      }
-      if (info.file.status === 'done') {
-        console.log('---done---')
-        getBase64(info.file.originFileObj).then((fileUrl) => {
-          imageUrl.value = fileUrl
-          loading.value = false
-        })
-      }
-      if (info.file.status === 'error') {
-        $message.error('上传失败！')
-      }
-    }
-
     const customRequest = async (file) => {
       loading.value = true
 
       imageUrl.value = await getBase64(file.file)
-      const img = new Image()
-      img.src = imageUrl.value
-      img.onload = function(){
-        $message.info('width:'+img.width+',height:'+img.height)
+      const initImg = new Image()
+      initImg.src = imageUrl.value
+      initImg.onload = function(){
+        $message.info('width:'+initImg.width+',height:'+initImg.height)
 
-        canvasWidth.value = img.width
-        canvasHeight.value = img.height
-        radius.value = Math.floor(Math.min(img.width, img.height) / 2 - 2)
+        canvasWidth.value = initImg.width
+        canvasHeight.value = initImg.height
+        radius.value = Math.floor(Math.min(initImg.width, initImg.height) / 2 - 2)
         
         nextTick(() => {
-          const cv = document.getElementById('previewCanvas')
-          const ctx = cv.getContext("2d")
-
-          drawCircleImage(ctx, img, img.width/2, img.height / 2, radius.value)
+          cv = document.getElementById('previewCanvas')
+          ctx = cv.getContext("2d")
+          drawCircleImage(ctx, initImg, canvasWidth.value / 2, canvasHeight.value / 2, radius.value)
           loading.value = false
         })
       }
     }
 
     const transferImage = () => {
-      console.log('转换图片')
+      if (!imageUrl.value) {
+        $message.info('请上传图片！')
+        return
+      }
+      if (!ctx) {
+          cv = document.getElementById('previewCanvas')
+          ctx = cv.getContext("2d")
+      }
+      const transferImg = new Image()
+      transferImg.src = imageUrl.value
+      transferImg.onload = function(){
+        nextTick(() => {
+          ctx.clearRect(0,0,canvasWidth.value, canvasHeight.value)
+
+          drawCircleImage(ctx, transferImg, transferImg.width/2, transferImg.height / 2, radius.value)
+          const wm = new watermark({ctx, text: formState.watermark, x: canvasWidth.value/2, y: canvasHeight.value / 2, fillStyle: formState.color, isRepeat: true, angle: formState.angle })
+          wm.drawWatermark()
+        })
+      }
+    }
+
+    const downFile = () => {
+      if (!cv && !imageUrl.value) return
+      saveAs(cv.toDataURL('image.png'))
     }
 
     const downImage = () => {
-      console.log('下载图片')
+      if (!imageUrl.value) {
+        $message.info('请上传图片！')
+        return
+      }
+      if (!ctx) {
+        cv = document.getElementById('previewCanvas')
+        ctx = cv.getContext("2d")
+      }
+
+      const downImg = new Image()
+      downImg.src = imageUrl.value
+      downImg.onload = function (){
+        nextTick(() => {
+          ctx.clearRect(0,0,canvasWidth.value, canvasHeight.value)
+          drawCircleImage(ctx, downImg, downImg.width/2, downImg.height / 2, radius.value)
+          const wm = new watermark({ctx, text: formState.watermark, x: downImg.width/2, y: downImg.height / 2, fillStyle: formState.color, isRepeat: true, angle: formState.angle })
+          wm.drawWatermark(downFile)
+        })
+      }
     }
 
     return {
@@ -172,7 +168,6 @@ export default {
       imageUrl,
       canvasWidth,
       canvasHeight,
-      handleChange,
       beforeUpload,
       customRequest,
       transferImage,

@@ -12,7 +12,7 @@
             <a-input-number v-model:value="formState.angle" />
           </a-form-item>
           <a-form-item label="颜色">
-            <el-color-picker v-model="formState.color" show-alpha size="small" />
+            <el-color-picker v-model="formState.color" show-alpha size="mini" />
           </a-form-item>
         </a-row>
         <a-row class="image-fillet--form-item">
@@ -152,7 +152,7 @@ export default {
 
     const downFile = () => {
       if (!cv && !imageUrl.value) return
-      saveAs(cv.toDataURL('image.png'))
+      saveAs(cv.toDataURL('image.png'), 'download.png')
     }
 
     const downImage = () => {
@@ -213,13 +213,13 @@ export default {
   width: 100%;
 
   .image-fillet--form {
-    margin-bottom: 12px;
+    margin-bottom: 4px;
   }
 
   .image-fillet--form-item {
     position: relative;
-    padding: 12px 8px 0px;
-    margin: 0 8px 8px 0;
+    padding: 12px 8px 8px;
+    margin: 0 8px 16px 0;
     border: 1px solid #{$borderColorLight};
   }
 

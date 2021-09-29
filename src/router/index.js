@@ -47,6 +47,12 @@ export const constantRoutes = [
         component: () => import('@/views/tools/imageFillet'),
         name: 'image-fillet',
         meta: { title: '在线图片处理', }
+      },
+      {
+        path: 'enc',
+        component: () => import('@/views/tools/enc'),
+        name: 'enc-dec',
+        meta: { title: '加密/解密', }
       }
     ]
   },

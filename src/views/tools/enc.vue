@@ -1,6 +1,6 @@
 <template>
   <div class="main-page">
-    <sys-title title="工具列表"></sys-title>
+    <sys-title title="加密/解密"></sys-title>
     <div></div>
   </div>
 </template>

@@ -25,21 +25,8 @@ export const constantRoutes = [
         path: 'index',
         component: () => import('@/views/index/index'),
         name: 'main',
-        meta: { title: '首页1',  }
-      },
-      {
-        path: 'test',
-        component: () => import('@/views/test'),
-        name: 'test1',
-        meta: { title: 'DEMO1' }
-      },
-      {
-        path: 'test2',
-        component: () => import('@/views/test'),
-        name: 'test2',
-        meta: { title: 'DEMO2' },
-        hidden: true
-      },
+        meta: { title: '首页',  }
+      }
     ]
   },
   {
@@ -53,12 +40,12 @@ export const constantRoutes = [
         path: 'index',
         component: () => import('@/views/tools/index'),
         name: 'Tools',
-        meta: { title: '工具', }
+        meta: { title: '工具' }
       },
       {
         path: 'image-fillet',
         component: () => import('@/views/tools/imageFillet'),
-        name: 'Tools',
+        name: 'image-fillet',
         meta: { title: '在线图片处理', }
       }
     ]
@@ -75,6 +62,21 @@ export const constantRoutes = [
         component: () => import('@/views/icons/index'),
         name: 'Icons',
         meta: { title: '图标',  }
+      }
+    ]
+  },
+  {
+    path: '/profile',
+    component: Layout,
+    name: 'Profile',
+    meta: { title: '个人信息', icon: 'user', affix: true },
+    redirect: 'index',
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/profile/index'),
+        name: 'profile',
+        meta: { title: '个人信息',  }
       }
     ]
   },

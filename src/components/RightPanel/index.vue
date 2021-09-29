@@ -80,7 +80,7 @@ export default defineComponent({
   },
   unmounted() {
     const elx = this.$refs.rightPanelRef
-    elx.remove()
+    elx && elx.remove()
   }
 })
 </script>

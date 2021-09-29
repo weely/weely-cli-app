@@ -5,23 +5,16 @@
 </template>
 
 <script>
-import { ref, getCurrentInstance } from 'vue'
+import { ref } from 'vue'
 
 export default {
   name: 'Tools',
   setup: () => {
-    const internalInstance = getCurrentInstance()
-    const $message = internalInstance.appContext.config.globalProperties.$message
 
     const msg = ref('msg')
 
-    const success = () => {
-      $message.success('This is a success message');
-    }
-
     return {
       msg,
-      success
     }
   },
 }

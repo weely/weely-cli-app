@@ -1,5 +1,6 @@
 import {
   Menu,
+  Row,
   Button,
   Form,
   Radio,
@@ -7,6 +8,7 @@ import {
   Switch,
   Select,
   Input,
+  InputNumber,
   Breadcrumb,
   Tooltip,
   Dropdown,
@@ -18,6 +20,7 @@ import {
 const autUi = {
   install:(app) => {
     app.use(Menu);
+    app.use(Row);
     app.use(Form);
     app.use(Button);
     app.use(Radio);
@@ -25,6 +28,7 @@ const autUi = {
     app.use(Switch);
     app.use(Select);
     app.use(Input);
+    app.use(InputNumber);
     app.use(Breadcrumb);
     app.use(Tooltip);
     app.use(Dropdown);

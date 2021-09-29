@@ -1,20 +1,29 @@
 <template>
   <div class="image-fillet-wapper">
-    <sys-title title="图片圆角处理"></sys-title>
+    <sys-title title="在线图片处理"></sys-title>
     <div class="image-fillet-content">
       <a-form layout="inline" :model="formState" class="image-fillet--form">
-        <a-form-item label="圆角尺寸">
-          <a-input v-model:value="formState.filletSize" />
-        </a-form-item>
-        <a-form-item label="水印文案">
-          <a-input v-model:value="formState.watermark" />
-        </a-form-item>
-        <a-form-item label="水印颜色">
-          <el-color-picker v-model="formState.color" show-alpha size="small" />
-        </a-form-item>
-        <a-form-item label="字体角度">
-          <a-input v-model:value.number="formState.angle" />
-        </a-form-item>
+        <a-row class="image-fillet--form-item">
+          <span class="image-fillet--form-item-label">添加水印</span>
+          <a-form-item label="水印">
+            <a-input v-model:value="formState.watermark" placeholder="为空时不添加水印" allowClear/>
+          </a-form-item>
+          <a-form-item label="倾斜角">
+            <a-input-number v-model:value="formState.angle" />
+          </a-form-item>
+          <a-form-item label="颜色">
+            <el-color-picker v-model="formState.color" show-alpha size="small" />
+          </a-form-item>
+        </a-row>
+        <a-row class="image-fillet--form-item">
+          <span class="image-fillet--form-item-label">图片类型</span>
+            <a-form-item label="图片类型">
+              <a-switch checked-children="圆形图片" un-checked-children="圆角图片" v-model:checked="formState.isCircle" />
+            </a-form-item>
+            <a-form-item label="圆角尺寸">
+              <a-input-number v-model:value="formState.filletSize" :disabled="formState.isCircle"/>
+            </a-form-item>
+        </a-row>
         <a-form-item>
           <a-button type="primary" style="margin-right: 12px;" @click="transferImage">图片转换</a-button>
           <a-button type="default" @click="downImage">图片下载</a-button>
@@ -31,6 +40,7 @@
           :customRequest="customRequest"
           :disabled="isDisabled"
           title="点击上传图片"
+          accept="image/*"
         >
           <canvas v-if="imageUrl" id="previewCanvas" :width="canvasWidth" :height="canvasHeight" />
           <div v-else class="upload-icon">
@@ -48,7 +58,7 @@
 import { ref, reactive, getCurrentInstance, nextTick } from 'vue'
 import { InboxOutlined, LoadingOutlined  } from '@ant-design/icons-vue';
 import { ElColorPicker } from 'element-plus'
-import { getBase64, drawCircleImage } from './utils'
+import { getBase64, drawCircleImage, drawFilletImage, clearCanvas } from './utils'
 import { saveAs } from 'file-saver'
 import watermark from './watermark'
 
@@ -67,23 +77,24 @@ export default {
     const canvasWidth = ref(200)
     const canvasHeight = ref(200)
     const formState = reactive({
+      isCircle: false,
       filletSize: 50,
-      watermark: 'weely.cc',
+      watermark: '',
       color: 'rgba(66, 65, 118, 0.36)',
-      angle: 45
+      angle: 30
     });
     let cv, ctx;
     
     const beforeUpload = (file) => {
-      const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-      if (!isJpgOrPng) {
-        $message.error('仅支持JPG格式！')
+      // const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+      // if (!isJpgOrPng) {
+      //   $message.error('仅支持JPG格式！')
+      // }
+      const isLt8M = file.size / 1024 / 1024 < 8
+      if (!isLt8M) {
+        $message.error('图片大小不能超过8MB！')
       }
-      const isLt2M = file.size / 1024 / 1024 < 2
-      if (!isLt2M) {
-        $message.error('图片大小不能超过2MB！')
-      }
-      return isJpgOrPng && isLt2M
+      return isLt8M
     }
 
     const customRequest = async (file) => {
@@ -102,7 +113,11 @@ export default {
         nextTick(() => {
           cv = document.getElementById('previewCanvas')
           ctx = cv.getContext("2d")
-          drawCircleImage(ctx, initImg, canvasWidth.value / 2, canvasHeight.value / 2, radius.value)
+          if (formState.isCircle) {
+            drawCircleImage(ctx, initImg, canvasWidth.value / 2, canvasHeight.value / 2, radius.value)
+          } else {
+            drawFilletImage(ctx, initImg, canvasWidth.value, canvasHeight.value, 0, 0, formState.filletSize)
+          }
           loading.value = false
         })
       }
@@ -121,11 +136,16 @@ export default {
       transferImg.src = imageUrl.value
       transferImg.onload = function(){
         nextTick(() => {
-          ctx.clearRect(0,0,canvasWidth.value, canvasHeight.value)
-
-          drawCircleImage(ctx, transferImg, transferImg.width/2, transferImg.height / 2, radius.value)
-          const wm = new watermark({ctx, text: formState.watermark, x: canvasWidth.value/2, y: canvasHeight.value / 2, fillStyle: formState.color, isRepeat: true, angle: formState.angle })
-          wm.drawWatermark()
+          clearCanvas(cv, canvasWidth.value, canvasHeight.value)
+          if (formState.isCircle) {
+            drawCircleImage(ctx, transferImg, transferImg.width/2, transferImg.height / 2, radius.value)
+          } else {
+            drawFilletImage(ctx, transferImg, canvasWidth.value, canvasHeight.value, 0, 0, formState.filletSize)
+          }
+          if (formState.watermark) {
+            const wm = new watermark({ctx, text: formState.watermark, x: canvasWidth.value/2, y: canvasHeight.value / 2, fillStyle: formState.color, isRepeat: true, angle: formState.angle })
+            wm.drawWatermark()
+          }
         })
       }
     }
@@ -149,10 +169,19 @@ export default {
       downImg.src = imageUrl.value
       downImg.onload = function (){
         nextTick(() => {
-          ctx.clearRect(0,0,canvasWidth.value, canvasHeight.value)
-          drawCircleImage(ctx, downImg, downImg.width/2, downImg.height / 2, radius.value)
-          const wm = new watermark({ctx, text: formState.watermark, x: downImg.width/2, y: downImg.height / 2, fillStyle: formState.color, isRepeat: true, angle: formState.angle })
-          wm.drawWatermark(downFile)
+          clearCanvas(cv, canvasWidth.value, canvasHeight.value)
+          if (formState.isCircle) {
+            drawCircleImage(ctx, downImg, downImg.width/2, downImg.height / 2, radius.value)
+          } else {
+            drawFilletImage(ctx, downImg, canvasWidth.value, canvasHeight.value, 0, 0, formState.filletSize)
+          }
+          if (formState.watermark) {
+            const wm = new watermark({ctx, text: formState.watermark, x: downImg.width/2, y: downImg.height / 2, fillStyle: formState.color, isRepeat: true, angle: formState.angle })
+            wm.drawWatermark(downFile)
+          } else {
+            downFile()
+          }
+
         })
       }
     }
@@ -184,8 +213,27 @@ export default {
   width: 100%;
 
   .image-fillet--form {
-    margin-bottom: 20px;
+    margin-bottom: 12px;
   }
+
+  .image-fillet--form-item {
+    position: relative;
+    padding: 12px 8px 0px;
+    margin: 0 8px 8px 0;
+    border: 1px solid #{$borderColorLight};
+  }
+
+  .image-fillet--form-item-label {
+    position: absolute;
+    top: -14px;
+    left: 8px;
+    padding: 0 8px;
+    font-weight: bold;
+    background: #fff;
+  }
+  // .image-fillet--form-item::after {
+  //   content: '水印'
+  // }
 
   .image-fillet--upload {
     width: 100%;

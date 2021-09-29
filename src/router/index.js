@@ -59,7 +59,7 @@ export const constantRoutes = [
         path: 'image-fillet',
         component: () => import('@/views/tools/imageFillet'),
         name: 'Tools',
-        meta: { title: '图片圆角处理', }
+        meta: { title: '在线图片处理', }
       }
     ]
   },

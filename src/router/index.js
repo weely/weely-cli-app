@@ -44,7 +44,7 @@ export const constantRoutes = [
       },
       {
         path: 'image-fillet',
-        component: () => import('@/views/tools/imageFillet'),
+        component: () => import('@/views/tools/image-fillet'),
         name: 'image-fillet',
         meta: { title: '在线图片处理', }
       },
@@ -53,6 +53,12 @@ export const constantRoutes = [
         component: () => import('@/views/tools/enc'),
         name: 'enc-dec',
         meta: { title: '加密/解密', }
+      },
+      {
+        path: 'json-editor',
+        component: () => import('@/views/tools/json-editor'),
+        name: 'json-editor-view',
+        meta: { title: 'JSON工具', }
       }
     ]
   },

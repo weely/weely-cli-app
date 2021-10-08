@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { ref, toRefs, reactive, watch, nextTick, onMounted } from 'vue'
 import CodeMirror from 'codemirror'
 import 'codemirror/addon/lint/lint.css'
 import 'codemirror/lib/codemirror.css'
@@ -15,9 +16,11 @@ import 'codemirror/addon/lint/lint'
 import 'codemirror/addon/lint/json-lint'
 import 'codemirror/addon/fold/foldgutter.css'
 import 'codemirror/addon/fold/foldcode.js'
+import 'codemirror/addon/fold/foldgutter.js'
+import 'codemirror/addon/fold/indent-fold.js'
 import 'codemirror/addon/fold/brace-fold.js'
-import 'codemirror/addon/fold/brace-fold.js'
-import { ref, toRefs, reactive, watch, nextTick, onMounted } from 'vue'
+import 'codemirror/addon/fold/comment-fold.js'
+import 'codemirror/mode/javascript/javascript.js'
 
 export default {
   name: 'JsonEditor',
@@ -26,7 +29,7 @@ export default {
   setup(props, context) {
     const { value } = toRefs(props)
     const textarea = ref(null)
-    let jsonEditor = reactive(null)
+    let jsonEditor = reactive(false)
 
     const getValue = () => {
       return jsonEditor && jsonEditor.getValue()
@@ -36,7 +39,8 @@ export default {
       nextTick(() => {
         jsonEditor = CodeMirror.fromTextArea(textarea.value, {
           theme: 'rubyblue',
-          mode: { name: "javascript", json: true },
+          // mode: { name: "javascript", json: true },
+          mode: 'application/json',
           lint: true,
           lineNumbers: true,  // 显示行号
           lineWrapping: true, // 文字过长时，换行
@@ -44,9 +48,9 @@ export default {
           // cursorHeight: 0.85, //光标高度，默认是1
           // matchBrackets: true, // 括号匹配
           // smartIndent: true, // 智能缩进
+          extraKeys: {'Ctrl-Q': function(cm){ cm.foldCode(cm.getCursor()) }},
           foldGutter: true,
           gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter', 'CodeMirror-lint-markers'],
-          extraKeys: {'Ctrl-Q': function(cm){ cm.foldCode(cm.getCursor()) }},
           foldOptions: {
             widget: (from, to) => {
               var count = undefined

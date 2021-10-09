@@ -1,6 +1,7 @@
 import {
   Menu,
   Row,
+  Col,
   Button,
   Form,
   Radio,
@@ -14,6 +15,9 @@ import {
   Dropdown,
   Upload,
   Empty,
+  Card,
+  avatar,
+  Progress,
   message
 } from 'ant-design-vue';
 
@@ -21,6 +25,7 @@ const autUi = {
   install:(app) => {
     app.use(Menu);
     app.use(Row);
+    app.use(Col);
     app.use(Form);
     app.use(Button);
     app.use(Radio);
@@ -34,6 +39,9 @@ const autUi = {
     app.use(Dropdown);
     app.use(Upload);
     app.use(Empty);
+    app.use(Card);
+    app.use(Progress);
+    app.use(avatar);
 
     app.config.globalProperties.$message = message;
   

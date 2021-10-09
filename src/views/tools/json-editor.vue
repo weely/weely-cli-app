@@ -1,5 +1,7 @@
 <template>
   <div class="components-container">
+    <sys-title title="JSON格式校验"></sys-title>
+
     <div class="editor-container">
       <json-editor ref="jsonEditor" v-model:value="value" />
     </div>

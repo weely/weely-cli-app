@@ -7,8 +7,7 @@ NProgress.configure({ showSpinner: false }) // NProgress不展示右上角加载
 
 router.beforeEach(async (to, from, next) => {
   NProgress.start()
-  // const { roles } = await store.dispatch('user/getInfo')
-  const roles = ['admin']
+  const { roles } = await store.dispatch('user/getInfo')
   const accessRoutes = await store.dispatch('permission/generateRoutes', roles)
 
   router.addRoute(accessRoutes)

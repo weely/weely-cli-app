@@ -40,7 +40,7 @@ export const constantRoutes = [
         path: 'index',
         component: () => import('@/views/tools/index'),
         name: 'Tools',
-        meta: { title: '工具' }
+        meta: { title: '工具列表' }
       },
       {
         path: 'image-fillet',

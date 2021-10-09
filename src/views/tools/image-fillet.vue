@@ -4,7 +4,7 @@
     <div class="image-fillet-content">
       <a-form layout="inline" :model="formState" class="image-fillet--form">
         <a-row class="image-fillet--form-item">
-          <span class="image-fillet--form-item-label">添加水印</span>
+          <span class="image-fillet--form-item-label">水印</span>
           <a-form-item label="水印">
             <a-input v-model:value="formState.watermark" placeholder="为空时不添加水印" allowClear/>
           </a-form-item>
@@ -16,7 +16,7 @@
           </a-form-item>
         </a-row>
         <a-row class="image-fillet--form-item">
-          <span class="image-fillet--form-item-label">图片类型</span>
+          <span class="image-fillet--form-item-label">图片</span>
             <a-form-item label="图片类型">
               <a-switch checked-children="圆形图片" un-checked-children="圆角图片" v-model:checked="formState.isCircle" />
             </a-form-item>

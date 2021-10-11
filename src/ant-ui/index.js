@@ -45,7 +45,6 @@ const autUi = {
 
     app.config.globalProperties.$message = message;
   
-    return app
   }
 }
 

@@ -1,17 +1,17 @@
 <template>
   <div class="icons-page">
-    <sys-title title="系统图标"></sys-title>
+    <sys-title title="Icon组件"></sys-title>
     <p><a href="https://www.iconfont.cn/search/index?searchType=icon&q=%E5%B7%A5%E5%85%B7&page=1&tag=&fills=0" target="_blank">阿里矢量图库</a></p>
-    <div class="icons-list-wrapper">
+    <a-card title="系统图标" size="small">
       <div class="icons-list">
         <div v-for="iconItem in iconList" :key="iconItem" class="icon-item">
-          <div>
+          <div @click="success">
             <svg-icon  class-name="disabled"  :icon-class="`${iconItem}`" />
             <span class="icon-item-title">{{ iconItem }}</span>
           </div>
         </div>
       </div>
-    </div>
+    </a-card>
   </div>
 </template>
 
@@ -46,10 +46,6 @@ export default {
 
 .icons-page {
   width: 100%;
-
-  & .icons-list-wrapper {
-    border: solid 1px #{$borderColorLight};
-  }
 
   & .icons-list {
     display: flex;

@@ -8,11 +8,13 @@ import '@/styles/common.scss';
 import './middleware'
 import SvgIcon from './icons' // icon
 import SysTitle from '@/components/SysTitle'
+import CountTo from '@/components/CountTo'
 
 createApp(App)
   .component('svg-icon', SvgIcon)
   .component('sys-title', SysTitle)
   .use(autUi)
+  .use(CountTo)
   .use(store)
   .use(router)
   .mount('#app')

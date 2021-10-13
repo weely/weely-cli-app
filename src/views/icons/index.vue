@@ -1,7 +1,9 @@
 <template>
   <div class="icons-page">
     <sys-title title="Icon组件"></sys-title>
+    <div class="icons-page__content">
     <a-card title="系统图标(点击图标拷贝代码)" size="small">
+      <template #extra><span class="basic-arrow"><CaretDownFilled /></span></template>
       <div class="icons-list">
         <div v-for="iconItem in iconList" :key="iconItem" class="icon-item">
           <a-tooltip>
@@ -16,6 +18,7 @@
     </a-card>
 
     <a-card title="Ant Icon(直接按需引入即可)" size="small" class="sys-marg">
+      <template #extra><span class="basic-arrow"><CaretDownFilled /></span></template>
       <div class="icons-list">
         <div v-for="antIcon in antIconList" :key="antIcon" class="icon-item">
           <a-tooltip>
@@ -36,6 +39,7 @@
     <a-card title="iconify" size="small" class="sys-marg">
       <p><a href="https://iconify.design/" target="_blank">iconify</a></p>
     </a-card>
+    </div>
   </div>
 </template>
 
@@ -43,12 +47,17 @@
 import { ref, readonly } from 'vue'
 import svgIcons from './svg-icons'
 import clipboard from '@/utils/clipboard'
-import { AndroidOutlined, AppleOutlined, WindowsOutlined, GooglePlusOutlined, GithubOutlined, WechatOutlined, QqOutlined, SlackOutlined, TwitterOutlined, AlipayCircleOutlined }  from '@ant-design/icons-vue'
+import {
+  AndroidOutlined, AppleOutlined, WindowsOutlined, GooglePlusOutlined, GithubOutlined,
+  WechatOutlined, QqOutlined, SlackOutlined, TwitterOutlined, AlipayCircleOutlined, CaretDownFilled
+}  from '@ant-design/icons-vue'
 
 export default {
   name: 'Icons',
   components: {
-    AndroidOutlined, AppleOutlined, WindowsOutlined, GooglePlusOutlined, GithubOutlined, WechatOutlined, QqOutlined, SlackOutlined, TwitterOutlined, AlipayCircleOutlined
+    AndroidOutlined, AppleOutlined, WindowsOutlined, GooglePlusOutlined, GithubOutlined,
+    WechatOutlined, QqOutlined, SlackOutlined, TwitterOutlined, AlipayCircleOutlined,
+    CaretDownFilled
   },
   setup: () => {
 
@@ -85,6 +94,10 @@ export default {
 .icons-page {
   width: 100%;
 
+  &__content {
+    padding: 16px;
+  }
+
   & .icons-list {
     display: flex;
     flex-wrap: wrap;
@@ -118,6 +131,10 @@ export default {
 
   .disabled {
     pointer-events: none;
+  }
+
+  .basic-arrow {
+    transition: all .3s ease .1s;
   }
 }
 </style>

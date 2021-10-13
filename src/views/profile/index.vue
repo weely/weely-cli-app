@@ -55,5 +55,10 @@ export default {
 <style lang="scss" scoped>
 .profile-page {
   width: 100%;
+
+  &__content {
+    padding: 16px;
+  }
+  
 }
 </style>

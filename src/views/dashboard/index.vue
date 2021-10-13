@@ -72,6 +72,7 @@ export default {
 <style lang="scss" scoped>
 .dashboard-page {
   width: 100%;
+  padding: 16px;
 
 }
 

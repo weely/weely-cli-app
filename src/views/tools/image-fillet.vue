@@ -211,6 +211,11 @@ export default {
 
 .image-fillet-wapper {
   width: 100%;
+  background: #fff;
+
+  .image-fillet-content {
+    padding: 16px;
+  }
 
   .image-fillet--form {
     margin-bottom: 4px;

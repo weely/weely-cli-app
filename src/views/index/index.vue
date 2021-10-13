@@ -1,7 +1,10 @@
 <template>
   <div class="main-page">
-    <h4>首页</h4>
-    <a-button @click="success">Success</a-button>
+    <sys-title title="首页"></sys-title>
+
+    <div class="main-page__content">
+      <a-button @click="success">Success</a-button>
+    </div>
   </div>
 </template>
 
@@ -31,5 +34,9 @@ export default {
 <style lang="scss" scoped>
 .main-page {
   width: 100%;
+
+  &__content {
+    padding: 16px;
+  }
 }
 </style>

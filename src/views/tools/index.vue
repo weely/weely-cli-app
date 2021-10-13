@@ -1,15 +1,14 @@
 <template>
   <div class="tools-page">
     <sys-title title="工具列表"></sys-title>
-    <div class="">
-      <div class="tools-list-wrapper">
-        <div class="tools-list">
-          <div v-for="routerItem in toolsList" :key="routerItem">
-            <router-link :to="routerItem.path" class="tool-item">
-              <svg-icon v-if="routerItem.meta.icon" class-name="disabled" :icon-class="`${routerItem.meta.icon}`" />
-              <span class="tool-item-title">{{ routerItem.meta.title }}</span>
-            </router-link>
-          </div>
+    
+    <div class="tools-list-wrapper">
+      <div class="tools-list">
+        <div v-for="routerItem in toolsList" :key="routerItem">
+          <router-link :to="routerItem.path" class="tool-item">
+            <svg-icon v-if="routerItem.meta.icon" class-name="disabled" :icon-class="`${routerItem.meta.icon}`" />
+            <span class="tool-item-title">{{ routerItem.meta.title }}</span>
+          </router-link>
         </div>
       </div>
     </div>
@@ -45,7 +44,8 @@ export default {
 
   & .tools-list-wrapper {
     // border: solid 1px #{$borderColorLighter};
-    margin-top: 20px;
+    padding: 20px;
+    background: #fff;
   }
 
   & .tools-list {

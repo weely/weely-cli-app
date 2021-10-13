@@ -32,7 +32,7 @@ export default defineComponent({
   width: 100%;
   position: relative;
   overflow: hidden;
-  padding: 16px;
+  padding: 0px;
   background: #f0f2f5;
 }
 

@@ -1,6 +1,7 @@
 @import './variables.scss';
 @import './sidebar.scss';
 @import './mixin.scss';
+@import './ant.scss';
 
 .svg-icon {
   width: 1em;
@@ -20,4 +21,9 @@ ul,li {
   list-style: none;
   margin: 0px;
   padding: 0px;
+}
+
+.sys-marg {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
 }

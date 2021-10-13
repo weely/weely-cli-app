@@ -18,6 +18,7 @@ import {
   Card,
   avatar,
   Progress,
+  popover,
   message
 } from 'ant-design-vue';
 
@@ -41,6 +42,7 @@ const autUi = {
     app.use(Empty);
     app.use(Card);
     app.use(Progress);
+    app.use(popover);
     app.use(avatar);
 
     app.config.globalProperties.$message = message;

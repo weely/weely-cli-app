@@ -33,6 +33,7 @@ export default defineComponent({
   position: relative;
   overflow: hidden;
   padding: 16px;
+  background: #f0f2f5;
 }
 
 .fixed-header+.app-main {

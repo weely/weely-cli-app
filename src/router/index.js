@@ -14,21 +14,21 @@ export const constantRoutes = [
       }
     ]
   },
-  // {
-  //   path: '/',
-  //   component: Layout,
-  //   name: 'main',
-  //   meta: { title: '首页', icon: 'component', affix: true },
-  //   redirect: 'index',
-  //   children: [
-  //     {
-  //       path: 'index',
-  //       component: () => import('@/views/index/index'),
-  //       name: 'main',
-  //       meta: { title: '首页',  }
-  //     }
-  //   ]
-  // },
+  {
+    path: '/',
+    component: Layout,
+    name: 'main',
+    meta: { title: '首页', icon: 'component', affix: true },
+    redirect: 'index',
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/index/index'),
+        name: 'main',
+        meta: { title: '首页',  }
+      }
+    ]
+  },
   {
     path: '/tools',
     component: Layout,

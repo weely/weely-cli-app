@@ -8,7 +8,9 @@
         </a-col>
 
         <a-col :span="18" :xs="24" :md="18">
-          demo
+          <a-card>
+            demo
+          </a-card>
         </a-col>
       </a-row>
     </div>

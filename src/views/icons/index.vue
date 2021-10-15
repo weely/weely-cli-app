@@ -2,43 +2,61 @@
   <div class="icons-page">
     <sys-title title="Icon组件"></sys-title>
     <div class="icons-page__content">
-    <a-card title="系统图标(点击图标拷贝代码)" size="small">
-      <template #extra><span class="basic-arrow"><CaretDownFilled /></span></template>
-      <div class="icons-list">
-        <div v-for="iconItem in iconList" :key="iconItem" class="icon-item">
-          <a-tooltip>
-            <template #title>{{ generateIconCode(iconItem) }}</template>
-            <div @click="handleClipboard(generateIconCode(iconItem), $event)">
-              <svg-icon  class-name="disabled" :icon-class="`${iconItem}`" />
-              <span class="icon-item-title">{{ iconItem }}</span>
-            </div>
-          </a-tooltip>
+      <collapse-card title="系统图标(点击图标拷贝代码)" size="small" :default-open="true">
+        <div class="icons-list">
+          <div v-for="iconItem in iconList" :key="iconItem" class="icon-item">
+            <a-tooltip>
+              <template #title>{{ generateIconCode(iconItem) }}</template>
+              <div @click="handleClipboard(generateIconCode(iconItem), $event)">
+                <svg-icon  class-name="disabled" :icon-class="`${iconItem}`" />
+                <span class="icon-item-title">{{ iconItem }}</span>
+              </div>
+            </a-tooltip>
+          </div>
         </div>
-      </div>
-    </a-card>
-
-    <a-card title="Ant Icon(直接按需引入即可)" size="small" class="sys-marg">
-      <template #extra><span class="basic-arrow"><CaretDownFilled /></span></template>
-      <div class="icons-list">
-        <div v-for="antIcon in antIconList" :key="antIcon" class="icon-item">
-          <a-tooltip>
-            <template #title>{{ generateAntIconCode(antIcon) }}</template>
-            <div @click="handleClipboard(generateAntIconCode(antIcon), $event)">
-              <component :is="antIcon" class="disabled" />
-              <span class="icon-item-title">{{ antIcon }}</span>
-            </div>
-          </a-tooltip>
+      </collapse-card>
+      <collapse-card size="small" class="sys-marg">
+        <template #title>
+          Ant Icon部分示例(直接按需引入即可，图标查询地址 <a href="https://icones.netlify.app/collection/ant-design" target="_blank">icones.netlify</a>)
+        </template>
+        <div class="icons-list">
+          <div v-for="antIcon in antIconList" :key="antIcon" class="icon-item">
+            <a-tooltip>
+              <template #title>{{ generateAntIconCode(antIcon) }}</template>
+              <div @click="handleClipboard(generateAntIconCode(antIcon), $event)">
+                <component :is="antIcon" class="disabled" />
+                <span class="icon-item-title">{{ antIcon }}</span>
+              </div>
+            </a-tooltip>
+          </div>
         </div>
-      </div>
-    </a-card>
-
-    <a-card title="阿里图标" size="small" class="sys-marg">
-      <p><a href="https://www.iconfont.cn/search/index?searchType=icon&q=%E5%B7%A5%E5%85%B7&page=1&tag=&fills=0" target="_blank">阿里矢量图库</a></p>
-    </a-card>
-
-    <a-card title="iconify" size="small" class="sys-marg">
-      <p><a href="https://iconify.design/" target="_blank">iconify</a></p>
-    </a-card>
+      </collapse-card>
+      <collapse-card size="small" class="sys-marg">
+        <template #title>
+          iconify部分示例(基本包含所有的图标，<a href="https://iconify.design/" target="_blank">iconify.design</a> 可以查询到想要的任何图标。并且打包只会打包所用到的图标)
+        </template>
+        <a-alert type="info">
+          <template #message>
+          <a href="https://docs.iconify.design/icon-components/vue/" target="_blank">Iconify for Vue3</a> 文档，推荐使用iconify,style属性可自定义样式
+          </template>
+        </a-alert>
+        <div class="icons-list">
+          <div v-for="iconify in iconifyList" :key="iconify" class="icon-item">
+            <a-tooltip>
+              <template #title>{{ generateIconifyIconCode(iconify) }}</template>
+              <div @click="handleClipboard(generateIconifyIconCode(iconify), $event)">
+                <!-- <span class="iconify" :data-icon="iconify"></span> -->
+                <!-- <Icon icon="mdi:home" style="color: red" /> -->
+                <Icon :icon="iconify"></Icon>
+                <span class="icon-item-title">{{ iconify }}</span>
+              </div>
+            </a-tooltip>
+          </div>
+        </div>
+      </collapse-card>
+      <collapse-card title="阿里图标(使用方法：登录下载svg引入即可)" size="small" class="sys-marg">
+        <p><a href="https://www.iconfont.cn/" target="_blank">阿里矢量图库</a></p>
+      </collapse-card>
     </div>
   </div>
 </template>
@@ -51,13 +69,17 @@ import {
   AndroidOutlined, AppleOutlined, WindowsOutlined, GooglePlusOutlined, GithubOutlined,
   WechatOutlined, QqOutlined, SlackOutlined, TwitterOutlined, AlipayCircleOutlined, CaretDownFilled
 }  from '@ant-design/icons-vue'
+import CollapseCard from '@/components/CollapseCard'
+import { Icon } from '@iconify/vue';
 
 export default {
   name: 'Icons',
   components: {
     AndroidOutlined, AppleOutlined, WindowsOutlined, GooglePlusOutlined, GithubOutlined,
     WechatOutlined, QqOutlined, SlackOutlined, TwitterOutlined, AlipayCircleOutlined,
-    CaretDownFilled
+    CaretDownFilled,
+    CollapseCard,
+    Icon
   },
   setup: () => {
 
@@ -71,6 +93,10 @@ export default {
     const generateAntIconCode = function(symbol) {
       return `<${symbol} />`
     }
+    const generateIconifyIconCode = function(symbol) {
+      // return `<span class="iconify" data-icon="${symbol}"></span>`
+      return `<Icon :icon="${symbol}" />`
+    }
 
     const handleClipboard = (text, event) => {
       clipboard(text, event)
@@ -80,8 +106,10 @@ export default {
       msg,
       iconList,
       antIconList,
+      iconifyList: ['fa-solid:home','mdi-light:home', 'mdi:alert', 'line-md:image-twotone', 'noto:angry-face', 'fa-regular:handshake'],
       generateIconCode,
       generateAntIconCode,
+      generateIconifyIconCode,
       handleClipboard
     }
   },
@@ -127,14 +155,8 @@ export default {
     color: #fff;
   }
 
-
-
   .disabled {
     pointer-events: none;
-  }
-
-  .basic-arrow {
-    transition: all .3s ease .1s;
   }
 }
 </style>

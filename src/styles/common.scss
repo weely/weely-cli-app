@@ -27,3 +27,21 @@ ul,li {
   margin-top: 1.25rem;
   margin-bottom: 1.25rem;
 }
+
+/* 滚动条的滑块 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+/* 滚动条的滑块 */
+::-webkit-scrollbar-thumb {
+  left: 2px;
+  background-color: rgba(144,147,153,.5);
+  border-radius: 4px;
+  // opacity: 0;
+  // transition: opacity .12s ease-out;
+}
+
+.collapse-transition {
+  transition: .3s height ease-in-out, .3s padding-top ease-in-out, .3s padding-bottom ease-in-out;
+}

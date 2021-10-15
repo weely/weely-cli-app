@@ -29,3 +29,11 @@ export function getInfo(token) {
   //   params: { token }
   // })
 }
+
+export function logout(data) {
+  return request({
+    url: '/prop-api/user/logout',
+    method: 'post',
+    data
+  })
+}

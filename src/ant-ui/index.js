@@ -2,6 +2,7 @@ import {
   Menu,
   Row,
   Col,
+  Space,
   Button,
   Form,
   Radio,
@@ -28,6 +29,7 @@ const autUi = {
     app.use(Menu);
     app.use(Row);
     app.use(Col);
+    app.use(Space);
     app.use(Form);
     app.use(Button);
     app.use(Radio);

@@ -105,8 +105,17 @@ export const constantRoutes = [
   },
   {
     path: '/test',
-    component: () => import('@/views/test'),
-    hidden: true
+    component: Layout,
+    redirect: 'index',
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/test'),
+        name: 'demo',
+        meta: { title: 'demo',  }
+      }
+    ],
+    // hidden: true
   },
   {
     path: '/:pathMatch(.*)',

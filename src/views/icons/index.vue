@@ -71,6 +71,7 @@ import {
 }  from '@ant-design/icons-vue'
 import CollapseCard from '@/components/CollapseCard'
 import { Icon } from '@iconify/vue';
+import iconifiesData from './iconifies.json'
 
 export default {
   name: 'Icons',
@@ -86,6 +87,7 @@ export default {
     const msg = ref('msg')
     const iconList = readonly(svgIcons)
     const antIconList = ['AndroidOutlined', 'AppleOutlined', 'WindowsOutlined', 'GithubOutlined', 'WechatOutlined', 'AlipayCircleOutlined', 'QqOutlined', 'SlackOutlined', 'TwitterOutlined', 'GooglePlusOutlined',]
+    const iconifyList = readonly(iconifiesData)
 
     const generateIconCode = function (symbol) {
       return `<svg-icon icon-class="${symbol}" />`
@@ -106,11 +108,11 @@ export default {
       msg,
       iconList,
       antIconList,
-      iconifyList: ['fa-solid:home','mdi-light:home', 'mdi:alert', 'line-md:image-twotone', 'noto:angry-face', 'fa-regular:handshake'],
+      iconifyList,
+      handleClipboard,
       generateIconCode,
       generateAntIconCode,
       generateIconifyIconCode,
-      handleClipboard
     }
   },
 }

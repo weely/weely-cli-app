@@ -52,7 +52,7 @@ export const constantRoutes = [
         path: 'enc',
         component: () => import('@/views/tools/enc'),
         name: 'enc-dec',
-        meta: { title: '加密/解密', }
+        meta: { title: '编码/解码', }
       },
       {
         path: 'json-editor',

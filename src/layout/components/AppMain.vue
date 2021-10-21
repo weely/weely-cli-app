@@ -1,11 +1,11 @@
 <template>
   <section class="app-main">
     <router-view :key="key" v-slot="{ Component }">
-      <keep-alive>
-        <transition name="fade">
-          <component :is="Component" />
-        </transition>
-      </keep-alive>
+      <transition name="fade">
+        <keep-alive>
+          <component :is="Component" :key="route.fullPath"/>
+        </keep-alive>
+      </transition>
     </router-view>
   </section>
 </template>
@@ -21,7 +21,8 @@ export default defineComponent({
     const key = computed(() => route.path)
 
     return {
-      key
+      key,
+      route
     }
   }
 })

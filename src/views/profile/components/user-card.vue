@@ -78,7 +78,7 @@ export default {
     }
   },
   setup() {
-    const cover = readonly(require('@/assets/saber.jpg'))
+    const cover = ref(require('@/assets/saber.jpg'))
     // https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png
     const strokeColor = readonly({
       '0%': '#108ee9',

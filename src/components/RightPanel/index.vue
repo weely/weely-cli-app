@@ -16,7 +16,7 @@
 <script>
 import { defineComponent, ref, toRefs, computed, watch, onMounted } from 'vue'
 import { useStore } from 'vuex'
-import { addClass, removeClass } from '@/utils'
+import { addClass, removeClass } from '@/utils/domUtils'
 import { SettingOutlined, CloseOutlined } from '@ant-design/icons-vue'
 
 export default defineComponent({

@@ -2,6 +2,9 @@
   <div class="icons-page">
     <sys-title title="Icon组件"></sys-title>
     <div class="icons-page__content">
+      <!-- <a-spin :spinning="loading" /> -->
+      <a-skeleton active :loading="loading" />
+      <template v-if="!loading">
       <collapse-card title="系统图标(点击图标拷贝代码)" size="small" :default-open="true">
         <div class="icons-list">
           <div v-for="iconItem in iconList" :key="iconItem" class="icon-item">
@@ -17,7 +20,7 @@
       </collapse-card>
       <collapse-card size="small" class="sys-marg">
         <template #title>
-          Ant Icon部分示例(直接按需引入即可，图标查询地址 <a href="https://icones.netlify.app/collection/ant-design" target="_blank">icones.netlify</a>)
+          Ant Icon部分示例(直接按需引入即可，图标查询地址 <a href="https://icones.netlify.app/collection/ant-design" target="_blank" rel="noopener noreferrer">icones.netlify</a>)
         </template>
         <div class="icons-list">
           <div v-for="antIcon in antIconList" :key="antIcon" class="icon-item">
@@ -33,11 +36,11 @@
       </collapse-card>
       <collapse-card size="small" class="sys-marg">
         <template #title>
-          iconify部分示例(基本包含所有的图标，<a href="https://iconify.design/" target="_blank">iconify.design</a> 可以查询到想要的任何图标。并且打包只会打包所用到的图标)
+          iconify部分示例(基本包含所有的图标，<a href="https://iconify.design/" target="_blank" rel="noopener noreferrer">iconify.design</a> 可以查询到想要的任何图标。并且打包只会打包所用到的图标)
         </template>
         <a-alert type="info">
           <template #message>
-          <a href="https://docs.iconify.design/icon-components/vue/" target="_blank">Iconify for Vue3</a> 文档，推荐使用iconify,style属性可自定义样式
+          <a href="https://docs.iconify.design/icon-components/vue/" target="_blank" rel="noopener noreferrer">Iconify for Vue3</a> 文档，推荐使用iconify,style属性可自定义样式
           </template>
         </a-alert>
         <div class="icons-list">
@@ -55,14 +58,15 @@
         </div>
       </collapse-card>
       <collapse-card title="阿里图标(使用方法：登录下载svg引入即可)" size="small" class="sys-marg">
-        <p><a href="https://www.iconfont.cn/" target="_blank">阿里矢量图库</a></p>
+        <p><a href="https://www.iconfont.cn/" target="_blank" rel="noopener noreferrer">阿里矢量图库</a></p>
       </collapse-card>
+      </template>
     </div>
   </div>
 </template>
 
 <script>
-import { ref, readonly } from 'vue'
+import { ref, readonly, onMounted } from 'vue'
 import svgIcons from './svg-icons'
 import clipboard from '@/utils/clipboard'
 import {
@@ -70,7 +74,6 @@ import {
   WechatOutlined, QqOutlined, SlackOutlined, TwitterOutlined, AlipayCircleOutlined, CaretDownFilled
 }  from '@ant-design/icons-vue'
 import CollapseCard from '@/components/CollapseCard'
-import { Icon } from '@iconify/vue';
 import iconifiesData from './iconifies.json'
 
 export default {
@@ -80,11 +83,11 @@ export default {
     WechatOutlined, QqOutlined, SlackOutlined, TwitterOutlined, AlipayCircleOutlined,
     CaretDownFilled,
     CollapseCard,
-    Icon
   },
   setup: () => {
 
     const msg = ref('msg')
+    const loading = ref(true)
     const iconList = readonly(svgIcons)
     const antIconList = ['AndroidOutlined', 'AppleOutlined', 'WindowsOutlined', 'GithubOutlined', 'WechatOutlined', 'AlipayCircleOutlined', 'QqOutlined', 'SlackOutlined', 'TwitterOutlined', 'GooglePlusOutlined',]
     const iconifyList = readonly(iconifiesData)
@@ -97,15 +100,22 @@ export default {
     }
     const generateIconifyIconCode = function(symbol) {
       // return `<span class="iconify" data-icon="${symbol}"></span>`
-      return `<Icon :icon="${symbol}" />`
+      return `<Icon icon="${symbol}" />`
     }
 
     const handleClipboard = (text, event) => {
       clipboard(text, event)
     }
 
+    onMounted(() => {
+      setTimeout(() => {
+        loading.value = false
+      }, 500)
+    })
+
     return {
       msg,
+      loading,
       iconList,
       antIconList,
       iconifyList,

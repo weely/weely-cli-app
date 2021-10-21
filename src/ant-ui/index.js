@@ -21,6 +21,8 @@ import {
   Progress,
   popover,
   alert,
+  spin,
+  skeleton,
   message
 } from 'ant-design-vue';
 
@@ -47,6 +49,8 @@ const autUi = {
     app.use(Progress);
     app.use(popover);
     app.use(alert);
+    app.use(spin);
+    app.use(skeleton);
     app.use(avatar);
 
     app.config.globalProperties.$message = message;

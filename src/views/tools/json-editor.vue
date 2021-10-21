@@ -2,25 +2,24 @@
   <div class="components-container">
     <sys-title title="JSON格式校验"></sys-title>
     <div class="editor-container">
-      <json-editor ref="jsonEditor" v-model:value="value" />
+      <json-editor v-model:value="value" />
     </div>
   </div>
 </template>
 
 <script>
 import JsonEditor from '@/components/JsonEditor'
-import { reactive } from 'vue'
+import { ref } from 'vue'
 
-const jsonData = '[{"items":[{"market_type":"forexdata","symbol":"XAUUSD"},{"market_type":"forexdata","symbol":"UKOIL"},{"market_type":"forexdata","symbol":"CORN"}],"name":""},{"items":[{"market_type":"forexdata","symbol":"XAUUSD"},{"market_type":"forexdata","symbol":"XAGUSD"},{"market_type":"forexdata","symbol":"AUTD"},{"market_type":"forexdata","symbol":"AGTD"}],"name":"贵金属"},{"items":[{"market_type":"forexdata","symbol":"CORN"},{"market_type":"forexdata","symbol":"WHEAT"},{"market_type":"forexdata","symbol":"SOYBEAN"},{"market_type":"forexdata","symbol":"SUGAR"}],"name":"农产品"},{"items":[{"market_type":"forexdata","symbol":"UKOIL"},{"market_type":"forexdata","symbol":"USOIL"},{"market_type":"forexdata","symbol":"NGAS"}],"name":"能源化工"}]'
+const jsonData = `{"project": "JSONViewer","description": "make JSON documents easy to read","描述": "校验JSON、格式化JSON","arr demo": [1, 2, 3, 4]}`
 
 export default {
   name: 'JsonEditorView',
   components: { JsonEditor },
   setup() {
-    const value = reactive(JSON.parse(jsonData))
 
     return {
-      value
+      value: ref(jsonData)
     }
   }
 }

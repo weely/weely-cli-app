@@ -18,7 +18,7 @@ export const constantRoutes = [
     path: '/',
     component: Layout,
     name: 'main',
-    meta: { title: '首页', icon: 'component', affix: true },
+    meta: { title: '首页', icon: 'home', affix: true },
     redirect: 'index',
     children: [
       {
@@ -26,6 +26,21 @@ export const constantRoutes = [
         component: () => import('@/views/index/index'),
         name: 'main',
         meta: { title: '首页',  }
+      }
+    ]
+  },
+  {
+    path: '/icons',
+    component: Layout,
+    name: 'Icons',
+    meta: { title: '图标', icon: 'icon', affix: true },
+    redirect: 'index',
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/icons/index'),
+        name: 'Icons',
+        meta: { title: '图标',  }
       }
     ]
   },
@@ -63,17 +78,17 @@ export const constantRoutes = [
     ]
   },
   {
-    path: '/icons',
+    path: '/feats',
     component: Layout,
-    name: 'Icons',
-    meta: { title: '图标', icon: 'icon', affix: true },
+    name: 'feats',
+    meta: { title: '功能', icon: 'component' },
     redirect: 'index',
     children: [
       {
         path: 'index',
-        component: () => import('@/views/icons/index'),
-        name: 'Icons',
-        meta: { title: '图标',  }
+        component: () => import('@/views/feats/index'),
+        name: 'feats',
+        meta: { title: '功能',  }
       }
     ]
   },

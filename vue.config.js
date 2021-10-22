@@ -59,6 +59,13 @@ module.exports = {
         // options
       }),
     ],
+    module: {
+      rules: [{
+        test: /\.mjs$/,
+        include: /node_modules/,
+        type: "javascript/auto"
+      }]
+    }
   },
   chainWebpack(config) {
     config.module

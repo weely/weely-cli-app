@@ -89,6 +89,12 @@ export const constantRoutes = [
         component: () => import('@/views/feats/index'),
         name: 'feats',
         meta: { title: '功能',  }
+      },
+      {
+        path: 'clickoutside',
+        component: () => import('@/views/feats/clickOutSide'),
+        name: 'clickOutSide',
+        meta: { title: 'clickOutSide组件',  }
       }
     ]
   },

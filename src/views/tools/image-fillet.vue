@@ -236,9 +236,6 @@ export default {
     font-weight: bold;
     background: #fff;
   }
-  // .image-fillet--form-item::after {
-  //   content: '水印'
-  // }
 
   .image-fillet--upload {
     width: 100%;
@@ -254,7 +251,7 @@ export default {
   }
 }
 
-:deep .ant-upload.ant-upload-select-picture-card {
+:deep(.ant-upload.ant-upload-select-picture-card) {
   margin: 20px auto;
   color: #666;
   width: 100%;

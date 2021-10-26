@@ -1,6 +1,6 @@
 <template>
   <div class="web-socket-exam">
-    <sys-title title="WebSocket 示例"></sys-title>
+    <sys-title title="WebSocket 测试"></sys-title>
     <div class="web-socket-exam__content">
       <a-row :gutter="16">
         <a-col :span="8">

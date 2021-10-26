@@ -82,13 +82,13 @@ export const constantRoutes = [
     component: Layout,
     name: 'feats',
     meta: { title: '功能', icon: 'component' },
-    redirect: 'index',
+    redirect: 'ws',
     children: [
       {
-        path: 'index',
-        component: () => import('@/views/feats/index'),
-        name: 'feats',
-        meta: { title: '功能',  }
+        path: 'ws',
+        component: () => import('@/views/feats/websocket-exam'),
+        name: 'webSocketExam',
+        meta: { title: 'websocket测试',  }
       },
       {
         path: 'clickoutside',

@@ -27,7 +27,7 @@ export default defineComponent({
       type: Boolean
     },
     buttonTop: {
-      default: 250,
+      default: 300,
       type: Number
     }
   },
@@ -89,7 +89,8 @@ export default defineComponent({
 .showRightPanel {
   overflow: hidden;
   position: relative;
-  width: calc(100% - 15px);
+  /* width: calc(100% - 15px); */
+  width: 100%;
 }
 </style>
 
@@ -134,21 +135,21 @@ export default defineComponent({
 }
 
 .handle-button {
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   position: absolute;
-  left: -48px;
+  left: -40px;
   text-align: center;
-  font-size: 24px;
+  font-size: 20px;
   border-radius: 6px 0 0 6px !important;
   z-index: 0;
   pointer-events: auto;
   cursor: pointer;
   color: #fff;
-  line-height: 48px;
+  line-height: 40px;
   i {
-    font-size: 24px;
-    line-height: 48px;
+    font-size: 20px;
+    line-height: 40px;
   }
 }
 </style>

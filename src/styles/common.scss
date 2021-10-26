@@ -45,3 +45,13 @@ ul,li {
 .collapse-transition {
   transition: .3s height ease-in-out, .3s padding-top ease-in-out, .3s padding-bottom ease-in-out;
 }
+
+.sys-line {
+  height: 1px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-width: 0px;
+  border-top-width: 1px;
+  border-style: solid;
+  border-color: rgb(229, 231, 235);
+}

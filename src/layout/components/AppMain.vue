@@ -41,6 +41,7 @@ export default defineComponent({
 
 .fixed-header+.app-main {
   padding-top: 50px;
+  min-height: 100vh;
 }
 
 .hasTagsView {

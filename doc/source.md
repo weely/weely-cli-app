@@ -34,3 +34,19 @@ https://codemirror.net/theme/
 
 ## 配色表
 http://tool.c7sky.com/webcolor/
+
+### https://caniuse.com/
+https://caniuse.com/
+
+
+### (Parcel)[https://parceljs.org/docs/]
+
+### (semver)[https://www.npmjs.cn/misc/semver/] ：(语义化版本（Semantic Versioning）规范)[https://semver.org/lang/zh-CN/] 的一个实现
+
+## node 相关库 (npmjs)[https://www.npmjs.com/]
+chalk: Terminal string styling done right
+ora: Elegant terminal spinner
+open: Open stuff like URLs, files, executables. Cross-platform.
+dotenv：Dotenv is a zero-dependency module that loads environment variables from a .env
+dotenv-expand：Dotenv-expand adds variable expansion on top of dotenv
+node-ipc: a nodejs module for local and remote Inter Process Communication with full support for Linux, Mac and Windows.

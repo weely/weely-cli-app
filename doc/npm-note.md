@@ -1,7 +1,8 @@
 # npm镜像问题
 
-## 修改切换npm镜像
+[npm 常用命令详解](https://www.cnblogs.com/itlkNote/p/6830682.html) 
 
+## 修改切换npm镜像
 方法1： 直接编辑npm配置文件
 ```
 直接修改registry的地址

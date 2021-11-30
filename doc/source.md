@@ -50,3 +50,11 @@ open: Open stuff like URLs, files, executables. Cross-platform.
 dotenv：Dotenv is a zero-dependency module that loads environment variables from a .env
 dotenv-expand：Dotenv-expand adds variable expansion on top of dotenv
 node-ipc: a nodejs module for local and remote Inter Process Communication with full support for Linux, Mac and Windows.
+
+
+## 语言使用排名
+[https://www.tiobe.com/tiobe-index/](https://www.tiobe.com/tiobe-index/)
+
+
+## 移动端问题汇总
+[https://www.cnblogs.com/myfate/p/12148724.html](https://www.cnblogs.com/myfate/p/12148724.html)

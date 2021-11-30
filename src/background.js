@@ -20,7 +20,7 @@ async function createWindow() {
     backgroundColor: '#2e2c29',
     icon: iconPath,
     webPreferences: {
-      
+      nativeWindowOpen: true,
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
       nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,

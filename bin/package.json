@@ -1,0 +1,15 @@
+{
+  "name": "wely-cli",
+  "version": "1.0.0",
+  "keywords": ["cli"],
+  "description": "simple cli demo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "wely-cli": "./wely-cli.js"
+  },
+  "author": "",
+  "license": "ISC"
+}

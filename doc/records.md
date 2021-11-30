@@ -81,3 +81,44 @@ any-pointer:coarse表示所有指针里面，只要有一个指针是不精确�
 6、其他工具包
  (react-device-detect)[https://www.npmjs.com/package/react-device-detect]，它支持多种粒度的设备侦测
  (mobile-detect)[https://www.npmjs.com/package/mobile-detect]
+
+
+7、一行代码实现黑白屏切换
+
+** 至为灰色 **
+// 现代浏览器
+html {
+  filter: grayscale(1);
+  -webkit-filter: grayscale(1); /* Old Chrome、Old Safari、Old Opera*/
+  filter: grayscale(1); /* 现代浏览器标准 */
+  filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); /* IE */
+}
+
+** 切换黑白色 **
+html {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+
+8、chrome浏览器中自带input样式input:-internal-autofill-selected修改（修改input通过autocomplete选中而出现的背景色）
+方案1：如果不是透明色，可直接修改box-shadow
+```
+input:-webkit-autofill {
+  box-shadow: 0 0 0 1000px #f0f0f0 inset !important;
+}
+```
+
+方案2：通css3动画解决
+```
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition-delay: 111111s;
+  transition: color 11111s ease-out, background-color 111111s ease-out;
+}
+```
+方案3：关闭自动填充功能
+```
+<input type="text" autocomplete="off">
+```

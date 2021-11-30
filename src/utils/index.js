@@ -130,3 +130,35 @@ export function parseTime(time, cFormat) {
     return x.slice(1).toUpperCase();
   })
 }
+
+function quickSort(array) {
+  if (array.length <= 1) {
+    return array
+  }
+  const pivot = array[0]
+  const tempArray = array.slice(1)
+  const lessList = tempArray.filter((i) => i <= pivot)
+  const greaterList = tempArray.filter((i) => i > pivot)
+  return quickSort(lessList).concat([pivot], quickSort(greaterList))
+}
+
+
+function simpleSort(array) {
+  const res = []
+  while(array.length > 0) {
+    let minIndex = 0
+    for(let i=1; i < array.length; i++) {
+      if (array[i] < array[minIndex]) {
+        minIndex = i
+      }
+    }
+    const minItem = array.splice(minIndex, 1)
+    res.push(minItem)
+  }
+  return res
+}
+
+var arr = Array.from(new Array(100000).keys()).map(() => Math.floor(Math.random(1) * 100000));
+var arr2 = [...arr];
+console.time(); quickSort(arr);console.timeEnd()
+console.time(); simpleSort(arr2);console.timeEnd()

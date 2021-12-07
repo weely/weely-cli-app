@@ -7,3 +7,9 @@
 ```
 npm i node-sass --sass_binary_site=https://npm.taobao.org/mirrors/node-sass/ -D
 ```
+
+
+### git clone 拉取代码出现 ` OpenSSL SSL_read: Connection was reset, errno 10054` 错误
+解决方法：
+将https校验关掉即可，执行命令如下：
+`git config --global http.sslVerify "false"`

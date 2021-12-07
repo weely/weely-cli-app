@@ -1,6 +1,7 @@
 
 ### html截图库：https://html2canvas.hertzen.com/
 
+### [awesome-vue](https://github.com/vuejs/awesome-vue#tree)
 
 ### codemirror 使用
 https://www.cnblogs.com/huair_12/p/4115229.html
@@ -58,3 +59,10 @@ node-ipc: a nodejs module for local and remote Inter Process Communication with 
 
 ## 移动端问题汇总
 [https://www.cnblogs.com/myfate/p/12148724.html](https://www.cnblogs.com/myfate/p/12148724.html)
+
+## devtools工具文档
+[Chrome DevTools](https://developer.chrome.com/docs/devtools/)
+[内存问题](https://developer.chrome.com/docs/devtools/memory-problems/)
+
+## 低代码
+[https://github.com/taowen/awesome-lowcode/](https://github.com/taowen/awesome-lowcode/)

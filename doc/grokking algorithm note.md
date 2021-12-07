@@ -158,16 +158,296 @@ function quickSort(list) {
 
 
 ## 散列表（字典）
+散列函数：将输出映射到数字
+散列函数需要满足的条件：
+* 同一输入，输出结果必须是一致的
+* 不同的输入映射到不同的数字
+
+平均情况下，散列表执行各种操作的算法时间均为O(1),常量时间
 
 
+## 广度优先搜索
+
+### 图简介
+广度优先搜索：解决最短路径问题的算法
+有向图：关系单向
+无向图：无方向或关系双向
+
+### 广度优先搜索
+查找最短路径
+
+* 队列：一种先进先出（First In First Out,FIFO）的数据结构
+* 栈：一种先进后出（Last In First Out,LIFI）的数据结构
+```
+// 广度优先搜索
+const graph = {
+  you: ['alice', 'bob', 'claire'],
+  bob: ['anuj', 'peggy'],
+  alice: ['peggy'],
+  claire: ['thom', 'jonny'],
+  anuj: [],
+  peggy: [],
+  thom: [],
+  jonny: []
+}
+
+function Deque(){
+  this.deque = []
+}
+
+Deque.prototype.push = function(value) {
+  if (Array.isArray(value)) {
+    this.deque = this.deque.concat(value)
+  } else {
+    this.deque.push(value)
+  }
+}
+
+Deque.prototype.pop = function(value) {
+  return this.deque.shift(value)
+}
+
+Deque.prototype.size = function() {
+  return this.deque.length
+}
+
+function meetCondition(value) {
+  return value?.[0] === 't'
+}
+// 广度优先搜索-查找有没有合适的经销商
+function search(name) {
+  const searched = new Set()
+  const deque = new Deque()
+  deque.push(graph[name])
+  while (deque.size() > 0) {
+    const value = deque.pop()
+    if (!searched.has(value)) {
+      if (meetCondition(value)) {
+        return value
+      } else {
+        deque.push(graph[value])
+        searched.add(value)
+      }
+    }
+  }
+  return false
+}
+
+search('you')
+```
+
+### 小结
+* 广度优先搜索指出是否有从A到B的路线
+* 如果有，广度优先搜索将找出最短路径
+* 当遇到类似于寻找最短路径问题时，可尝试使用图建立模型，再使用广度优先搜索来解决问题
+* 有向图中的边为箭头，箭头表示关系的方向
+* 无向图中的边不带箭头，关系是双向的
+* 队列是先进先出(FIFO)
+* 栈是是后进先出(LIFO)
+* 需要按加入顺序检查搜索列表中的对象，否则找到的非最短路径，因此搜索列表必须是队列
+* 已经检查过的对象，不必再去检查，否则可能导致死循环
+
+## 狄克斯特拉算法
+找出加权的最快路径
+
+问题：从一个顶点到其余各顶点的最短路径算法
+[狄克斯特拉算法图解](https://img-blog.csdn.net/20181006144205780?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zOTQzMzc4Mw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+
+狄克斯特拉算法思路：
+1. 找出最便宜的节点，即可在最短时间内前往的节点
+2. 对于该节点的所有邻居，检查是否有前往他们的更短路径，如果有，就更新其开销
+3. 标记处理过的节点，并后续步骤中不再处理
+4. 重复以上过程，直到对图中的每个节点都这样做了
+5. 计算最终路径
+```
+const graph = {
+  start: {
+    a: 6,
+    b: 3
+  },
+  a: {
+    c: 2,
+    d: 4
+  },
+  b: {
+    e: 10,
+  },
+  c: {
+    fin: 5
+  },
+  d: {
+    e: 1,
+    fin: 4
+  },
+  e: {
+    fin: 1
+  },
+  fin: { }
+}
+
+const costs = {
+  a: 6,
+  b: 3,
+  c: Infinity,
+  d: Infinity,
+  e: Infinity,
+  fin: Infinity
+}
+
+const parents = {
+  a: 'start',
+  b: 'start',
+  c: 'a',
+  d: 'a',
+  e: 'b',
+  fin: null
+}
+const processed = []
+
+function findLowestCostNode(costs) {
+  let lowestCost = Infinity, lowestCostNode;
+  for (let node in costs) {
+    const cost = costs[node]
+    if (!processed.includes(node)) {
+      if (cost < lowestCost) {
+        lowestCost = cost
+        lowestCostNode = node
+      }
+    }
+  }
+  return lowestCostNode
+}
+
+function dijkstra(){
+  let node = findLowestCostNode(costs)
+  while(node) {
+    let cost = costs[node]
+    const neighbors = graph[node]
+    for (let k in neighbors) {
+      const newCost = cost + neighbors[k]
+      if (costs[k] > newCost) {
+        costs[k] = newCost
+        parents[k] = node
+      }
+    }
+    processed.push(node)
+    node = findLowestCostNode(costs)
+  }
+}
+dijkstra()
+```
 
 
+### 小结
+* 广度优先搜索用于非加权图中查找最短路径
+* 狄克斯特拉算法用于在加权图中查找最短路径
+* 仅当权重为正时狄克斯特拉算法才管用
+* 如果图中包含负权边，可使用贝尔曼福德算法
 
+## 贪婪算法
 
+> NP完全问题
+简写：NP = P?
 
+### 教室调度问题
+如何在同一教室安排最多课程
 
+### 背包问题
+如何偷最值钱的东西
 
+### 集合覆盖问题
+四色问题
 
+### NP完全问题
+识别NP完全问题
+
+## 动态规划
+
+### 背包问题
+
+单元格价值 = 比较两者中较大的那个 max({
+  1. 上一个单元格的值(即 ceil[i-1][j])
+  2. 当前商品的价值 + 剩余空间的价值(ceil[i-1][j-当前商品的重量])
+})
+
+针对能否只取一部分的问题，直接采用贪婪算法就好，不需要用到动态规划
+
+```
+// 动态规划算法计算偷取最大价值商品问题
+const goods = {
+  macbook: {
+    price: 2000,
+    weight: 1
+  },
+  guitar: {
+    price: 1500,
+    weight: 3
+  },
+  piano: {
+    price: 3000,
+    weight: 4
+  },
+}
+const container = 4
+const matirx = []
+
+function dynamicProgram() {
+  const keys = Object.keys(goods)
+  for(let i = 0;i < keys.length; i++) { 
+    const key = keys[i]
+    matirx[i] = new Array()
+    for (let j = 0; j < container; j++) {
+      const good = goods[key]
+      const preCeilPrice = i > 0 && matirx[i-1] && matirx[i-1][j] || 0
+      const currentGoods = good.weight <= (j+1) ? good.price : 0
+      const resWeight = j + 1 - good.weight
+      const resContainerPrice = resWeight > 0 ? (matirx[i-1] && matirx[i-1][resWeight] || 0) : 0
+      matirx[i][j] = Math.max(preCeilPrice, currentGoods + resContainerPrice)
+    }
+  }
+}
+
+dynamicProgram()
+
+```
+
+```
+// 求最长公共子串
+var stringA = 'aswdsfhhhhhhhh1111221222222222000000'
+var stringB = 'aswdsfhhhh2hhhh111121ssd22122222222dsd2000000'
+function dynamicProgram2 (stringA, stringB) {
+  const listA = stringA.split('')
+  const listB = stringB.split('')
+  const maxPoint = {
+    x: -1,
+    y: -1,
+    value: 0,
+    total: 0
+  }
+  const matrix = []
+  for(let i = 0;i < listA.length; i++) {
+    matrix[i] = new Array()
+    for (let j=0; j < listB.length; j++) {
+      const topV = matrix[i-1] && matrix[i-1][j-1] || 0
+      if (listA[i] === listB[j]) {
+        matrix[i][j] = topV + 1
+      } else {
+        matrix[i][j] = 0
+      }
+      if (matrix[i][j] > maxPoint.value) {
+        maxPoint.x = i
+        maxPoint.y = j
+        maxPoint.value = matrix[i][j]
+        maxPoint.total = 1
+      } else if (matrix[i][j] === maxPoint.value){
+        maxPoint.total += 1
+      }
+    }
+  }
+  return { matrix, maxPoint }
+}
+const res = dynamicProgram2(stringA, stringB)
+```
 
 
 

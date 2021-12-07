@@ -13,7 +13,7 @@
       </app-link>
     </template>
 
-    <a-sub-menu v-else ref="subMenu" :key="resolvePath(item.path)" popper-append-to-body>
+    <a-sub-menu v-else ref="subMenu" :key="resolvePath(item.path)">
         <template #icon>
           <svg-icon v-if="item.meta && item.meta.icon" :icon-class="item.meta && item.meta.icon" />
         </template>

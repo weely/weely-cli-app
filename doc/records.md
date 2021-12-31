@@ -122,3 +122,20 @@ input:-webkit-autofill:active {
 ```
 <input type="text" autocomplete="off">
 ```
+
+
+### 
+* PaaS：平台即服务
+* Iaas：基础设施即服务
+* SaaS：软件即服务
+
+
+SOA: 面向服务架构
+DDD: 领域驱动设计（Domain Driven Design）
+
+AMP: Accelerated Mobile Pages
+PWA: progressive web app
+
+[现代 Web 开发的现状与未来（JSDC 2019 演讲全文）](https://zhuanlan.zhihu.com/p/88616149)
+
+[https://modernjs.dev/](https://modernjs.dev/)

@@ -16,6 +16,7 @@
       body { margin: 0; }
       canvas { width: 100%; height: 100% }
     </style>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <!-- <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-1b93190375e9ccc259df3a57c1abc0e64599724ae30d7ea4c6877eb615f89387.js"></script> -->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r122/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js"></script>
@@ -33,7 +34,7 @@
         ddd
       </div>
     </div>
-    <script>
+    <script type="text/babel">
       var box = document.getElementById('box');
 
       setTimeout(() => {
@@ -47,16 +48,32 @@
 
       function tryClick(event) {
         event.stopPropagation()
-
         console.log('event', event)
       }
-
-      document.addEventListener('click', function(event) {
-        alert('click out side')
-      })
+      let a = 1;
+      console.log(a)
+      Promise.resolve().finally();
+      // document.addEventListener('click', function(event) {
+      //   alert('click out side')
+      // })
     </script>
 
     <script>
+      var obj = {
+        x: 'world',
+        foo() {
+          super.foo();
+          console.log('obj')
+        }
+      }
+      var proto = {
+        x: 'hello',
+        foo() {
+          console.log(this.x);
+          console.log('proto')
+        },
+      };
+      Object.setPrototypeOf(obj, proto);
       // var scene = new THREE.Scene();
       // document.addEventListener( 'mousemove', onMouseMove, false );
       // var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );

@@ -63,6 +63,12 @@ export const constantRoutes = [
         meta: { title: '工具列表' }
       },
       {
+        path: 'create-qrcode',
+        component: () => import('@/views/tools/create-qrcode'),
+        name: 'create-qrcode-view',
+        meta: { title: '生成二维码', }
+      },
+      {
         path: 'image-fillet',
         component: () => import('@/views/tools/image-fillet'),
         name: 'image-fillet',
@@ -79,7 +85,7 @@ export const constantRoutes = [
         component: () => import('@/views/tools/json-editor'),
         name: 'json-editor-view',
         meta: { title: 'JSON工具', }
-      }
+      },
     ]
   },
   {

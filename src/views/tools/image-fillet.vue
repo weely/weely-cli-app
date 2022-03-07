@@ -129,8 +129,8 @@ export default {
         return
       }
       if (!ctx) {
-          cv = document.getElementById('previewCanvas')
-          ctx = cv.getContext("2d")
+        cv = document.getElementById('previewCanvas')
+        ctx = cv.getContext("2d")
       }
       const transferImg = new Image()
       transferImg.src = imageUrl.value

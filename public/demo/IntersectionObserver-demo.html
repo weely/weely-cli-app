@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script id="scriptDom" src="./index.js" ></script>
+    <style>
+      body { margin: 0; }
+
+      .box{
+        height: 200px;
+        background-color: bisque;
+      }
+      .box1 {
+        height: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <div class="box" id="box">1</div>
+      <img id="img2" class="bad-img" src=""/>
+      <!-- <img id="img1" class="img" src="https://www.tyncar.com/uploads/allimg/200414/1-200414001I0.jpg" /> -->
+      <div width="320" height="240" style="position: relative;" class="video">
+        <!-- <source src="https://www.runoob.com/try/demo_source/movie.mp4" type="video/mp4"> -->
+      </div>
+      <section style="position: absolute;z-index: 1;"><button onclick="toggleFullscreen()">全屏切换</button></section>
+
+      <div class="box1"></div>
+      <form id="robby">
+        <input type="button" onclick="alert(document.forms[0].id);" value="robby's form" />
+      </form>
+      
+      <form id="dave">
+        <input type="button" onclick="alert(document.forms[1].id);" value="dave's form" />
+      </form>
+      
+      <form id="paul">
+        <input type="button" onclick="alert(document.forms[2].id);" value="paul's form" />
+      </form>
+    </div>
+
+    <script>
+      (function(){
+        var iob = new IntersectionObserver(function(entries) {
+          console.log('Loaded new items', entries[0].intersectionRatio)
+          if (entries[0].intersectionRatio <= 0) return;
+        });
+        iob.observe(document.querySelector('.box'))
+      })();
+      window.addEventListener('online', (event) => {
+        console.log("You are now connected to the network.");
+      });
+      window.ononline = (event) => {
+        console.log("You are now connected to the network.");
+      };
+      window.addEventListener('offline', (event) => {
+        console.log("The network connection has been lost.");
+      });
+
+      // onoffline version
+      window.onoffline = (event) => {
+        console.log("The network connection has been lost.");
+      };
+      const badImg = document.querySelector('.bad-img');
+      badImg.addEventListener('error', (event) => {
+          console.error('img resource error',)
+      });
+
+      window.addEventListener("pagehide", event => {
+        console.log('page hide')
+        if (event.persisted) {
+          /* the page isn't being discarded, so it can be reused later */
+        }
+      }, false);
+      window.onpagehide = event => {
+        console.log('page hide -- 1')
+        if (event.persisted) {
+          /* the page isn't being discarded, so it can be reused later */
+        }
+      }
+      window.addEventListener('storage', () => {
+        // When local storage changes, dump the list to
+        // the console.
+        console.log(JSON.parse(window.localStorage.getItem('sampleList')));
+      });
+
+      setTimeout(() => {
+        window.localStorage.setItem('sampleList', 1)
+      }, 1000);
+      var selectForm = document.forms[0];
+      var selectFormElement = document.forms[0].elements[0];
+      console.log('---', selectForm, selectFormElement)
+      document.designMode = "on";
+
+      // document.onreadystatechange = function () {
+      //   switch (document.readyState) {
+      //     case "loading":
+      //       console.log('loading...')
+      //       // 表示文档还在加载中，即处于“正在加载”状态。
+      //       break;
+      //     case "interactive":
+      //       console.log('interactive')
+      //       // 文档已经结束了“正在加载”状态，DOM元素可以被访问。
+      //       // 但是像图像，样式表和框架等资源依然还在加载。
+      //       var span = document.createElement("span");
+      //       span.textContent = "A <span> element.";
+      //       document.body.appendChild(span);
+      //       break;
+      //     case "complete":
+      //       console.log('complete')
+      //       // 页面所有内容都已被完全加载.
+      //       let CSS_rule = document.styleSheets[0].cssRules[0].cssText;
+      //       console.log(`The first CSS rule is: ${CSS_rule }`);
+      //       break;
+      //   }
+      // }
+
+      scriptDom = document.getElementById('scriptDom')
+      console.log('---event---', scriptDom.readyState)
+
+      scriptDom.addEventListener('load', function (event) {
+        console.log('---event---', scriptDom.readyState)
+        switch (scriptDom.readyState) {
+          case "loading":
+            console.log('loading...')
+            // 表示文档还在加载中，即处于“正在加载”状态。
+            break;
+          case "interactive":
+            console.log('interactive')
+            // 文档已经结束了“正在加载”状态，DOM元素可以被访问。
+            // 但是像图像，样式表和框架等资源依然还在加载。
+            var span = document.createElement("span");
+            span.textContent = "A <span> element.";
+            document.body.appendChild(span);
+            break;
+          case "complete":
+            console.log('complete')
+            // 页面所有内容都已被完全加载.
+            let CSS_rule = document.styleSheets[0].cssRules[0].cssText;
+            console.log(`The first CSS rule is: ${CSS_rule }`);
+            break;
+        }
+      });
+
+      function toggleFullscreen() {
+        console.log('dbclick')
+        let elem = document.querySelector(".video");
+
+        if (!document.fullscreenElement) {
+          elem.requestFullscreen().catch(err => {
+            alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+          });
+        } else {
+          document.exitFullscreen();
+        }
+      }
+
+      
+    </script>
+  </body>
+</html>

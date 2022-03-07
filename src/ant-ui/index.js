@@ -3,6 +3,7 @@ import {
   Row,
   Col,
   Space,
+  Divider,
   Button,
   Form,
   Radio,
@@ -33,6 +34,7 @@ const autUi = {
     app.use(Row)
     app.use(Col)
     app.use(Space)
+    app.use(Divider)
     app.use(Form)
     app.use(Button)
     app.use(Radio)

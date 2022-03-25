@@ -1,54 +1,112 @@
 <template>
   <div class="components-container">
     <sys-title title="在线生成二维码"></sys-title>
-    <div class="create-qrcode-container">
-      <a-row class="create-qrcode__form">
-        <a-form layout="inline" :model="formState" class="image-fillet--form">
-          <a-form-item label="纠错级别">
-            <a-select
-              ref="select"
-              v-model:value="formState.correctLevel"
-              style="width: 120px"
-              :options="correntLevelOptions"
-            >
-            </a-select>
-          </a-form-item>
-          <a-form-item label="尺寸">
-            <a-input-number v-model:value="formState.size" :min="40" :max="500" />
-          </a-form-item>
-          <a-form-item label="前景色">
-            <el-color-picker v-model="formState.frontColor" show-alpha size="mini" />
-          </a-form-item>
-          <a-form-item label="背景色">
-            <el-color-picker v-model="formState.bgColor" show-alpha size="mini" />
-          </a-form-item>
-          <a-form-item>
-            <a-button :loading="loading" type="primary" style="margin-right: 12px;" @click="onCreateQrcode">生成二维码</a-button>
-            <a-button :loading="downLoading" type="default" @click="onDownloadQrcode">
-            <template #icon>
-              <DownloadOutlined />
-            </template>
-            下载二维码</a-button>
-            <!-- <a-button type="default" @click="onClear">清除</a-button> -->
-          </a-form-item>
-        </a-form>
-      </a-row>
+    <div class="cqr">
+      <div class="cqr__content">
+        <div class="cqr__item">
+          <label for="inputUrl">链接或文本</label>
+          <a-textarea id="inputUrl" v-model:value="formState.inputUrl" placeholder="输入链接或文本，不超过500字" allowClear class="cqr-i" />
+        </div>
+        <div class="space"></div>
+        <div class="cqr__form">
+          <div></div>
+        <!-- inline,vertical, horizontal -->
+          <a-form layout="horizontal" :model="formState" class="qrcode-form cqr-i" :label-col="{ span: 8 }" :wrapper-col="{ span: 8 }">
+            <a-form-item label="纠错级别">
+              <a-select
+                ref="select"
+                v-model:value="formState.correctLevel"
+                :options="correntLevelOptions"
+                class="qr-form-item"
+              >
+              </a-select>
+            </a-form-item>
+            <a-form-item label="版本">
+              <a-select
+                ref="select"
+                v-model:value="formState.version"
+                class="qr-form-item"
+              >
+                <a-select-option v-for="i in 40" :key="i" :value="i">{{i}}</a-select-option>
+              </a-select>
+            </a-form-item>
+            <a-form-item label="maskPattern">
+              <a-select
+                ref="select"
+                v-model:value="formState.maskPattern"
+                class="qr-form-item"
+              >
+                <a-select-option v-for="i in 8" :key="i" :value="i-1">{{i-1}}</a-select-option>
+              </a-select>
+            </a-form-item>
+            <a-form-item label="边距">
+              <a-select
+                ref="select"
+                v-model:value="formState.margin"
+                class="qr-form-item"
+              >
+                <a-select-option v-for="i in 17" :key="i" :value="i-1">{{i-1}}</a-select-option>
+              </a-select>
+            </a-form-item>
+            <a-form-item label="scale">
+              <a-select
+                ref="select"
+                v-model:value="formState.scale"
+                class="qr-form-item"
+              >
+                <a-select-option v-for="i in 20" :key="i" :value="i">{{i}}</a-select-option>
+              </a-select>
+            </a-form-item>
+            <a-form-item label="尺寸">
+              <a-select
+                ref="select"
+                v-model:value="formState.size"
+                class="qr-form-item"
+              >
+                <a-select-option value="50">50px</a-select-option>
+                <a-select-option value="100">100px</a-select-option>
+                <a-select-option value="200">200px</a-select-option>
+                <a-select-option value="400">400px</a-select-option>
+                <a-select-option value="500">500px</a-select-option>
+                <a-select-option value="1000">1000px</a-select-option>
+                <a-select-option value="2000">2000px</a-select-option>
+              </a-select>
+            </a-form-item>
+            <a-form-item label="尺寸">
+              <a-select
+                ref="select"
+                v-model:value="formState.segments"
+                class="qr-form-item"
+              >
+                <a-select-option value="alphanumeric">Alphanumeric</a-select-option>
+                <a-select-option value="Numeric">Numeric</a-select-option>
+                <a-select-option value="byte">Byte</a-select-option>
+              </a-select>
+            </a-form-item>
+            <a-form-item label="前景色">
+              <el-color-picker v-model="formState.frontColor" show-alpha size="mini" class="qr-form-item" />
+            </a-form-item>
+            <a-form-item label="背景色">
+              <el-color-picker v-model="formState.bgColor" show-alpha size="mini" class="qr-form-item"/>
+            </a-form-item>
+            <a-space direction="vertical" style="width: 100%;">
+              <a-button type="primary" @click="onCreateQrcode" style="width: 100%;">生成二维码</a-button>
+              <a-button type="default" @click="onDownloadQrcode" style="width: 100%;">
+                <template #icon>
+                  <DownloadOutlined />
+                </template>下载二维码</a-button>
+            </a-space>
 
-      <a-divider style="border-color: #7cb305" dashed />
-
-      <a-row class="create-qrcode__content">
-        <a-form layout="vertical" class="cqc__form">
-          <a-form-item label="链接或文本" class="qrcode-form-item">
-            <a-textarea v-model:value="formState.inputUrl" placeholder="输入链接或文本，不超过500字" :rows="16" allowClear/>
-          </a-form-item>
-          <div class="space"></div>
-          <a-form-item label="二维码" class="qrcode-form-item">
-            <section class="qrcode">
-              <div id="qrcodeCanvas" ref="qrcodeCanvas"></div>
-            </section>
-          </a-form-item>
-        </a-form>
-      </a-row>
+          </a-form>
+        </div>
+        <div class="space"></div>
+        <div class="cqr__item">
+          <label>二维码</label>
+          <section class="qrcode cqr-i">
+            <canvas id="qrcodeCanvas" ref="qrcodeCanvas" style="max-width: 400px;max-height: 400px;"></canvas>
+          </section>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -57,8 +115,9 @@
 import { DownloadOutlined } from '@ant-design/icons-vue'
 import { reactive, readonly, onMounted, nextTick, ref, getCurrentInstance } from 'vue'
 import { ElColorPicker } from 'element-plus'
-import QRCode from 'qrcodejs2'
+import QRCode from 'qrcode'
 import { saveAs } from 'file-saver'
+import { drawFilletImage, clearCanvas } from './utils'
 
 export default {
   name: 'CreateQrcodeView',
@@ -72,70 +131,97 @@ export default {
 
     // const goomeQrcodeLogo = require('@/assets/goome_qrcode_logo.jpg')
     const correntLevelOptions = readonly([
-      { label: 'L（低级）', value: QRCode.CorrectLevel.L },
-      { label: 'M（中级）', value: QRCode.CorrectLevel.M },
-      { label: 'Q（四分之一）', value: QRCode.CorrectLevel.Q },
-      { label: 'H（高级）', value: QRCode.CorrectLevel.H },
+      { label: 'L（低级）', value: 'L' },
+      { label: 'M（中级）', value: 'M' },
+      { label: 'Q（四分之一）', value: 'Q' },
+      { label: 'H（高级）', value: 'H' },
     ])
+    var segsOptions = [
+      { data: 'ABCDEFG', mode: 'alphanumeric' },
+      { data: '0123456', mode: 'numeric' }
+    ]
     const formState = reactive({
-      inputUrl: '',
-      size: 128,
+      inputUrl: 'demo',
+      size: 200,
       frontColor: '#000000',
       bgColor: '#ffffff',
-      correctLevel: QRCode.CorrectLevel.H
+      correctLevel: 'H',
+      scale: 4,
+      modules: '',
+      version: 2,
+      margin: 4,
+      maskPattern: 0,
+      segments: 'byte',
     })
-    const loading = ref(false)
-    const downLoading = ref(false)
-    let qrcodeImgData = null
 
-    const createQtcode = (url) => {
-      if (!url) {
-        $message.info('请输入链接或文本！')
-        return
+    const generateQR = async (text) => {
+      try {
+        if (!text) {
+          $message.info('请输入链接或文本！')
+          return Promise.reject(false)
+        }
+        const options = {
+          text: `${text}`,
+          width: formState.size,
+          height: formState.size,
+          version: formState.version,
+          margin: formState.margin,
+          maskPattern: formState.maskPattern,
+          scale: formState.scale,
+          color: {
+            dark : formState.frontColor,
+            light: formState.bgColor,
+          },
+          modules: '',
+          segments: formState.segments,
+          errorCorrectionLevel : formState.correctLevel,
+
+        }
+        const qrcodeDataUrl = await QRCode.toDataURL(text, options)
+        return Promise.resolve(qrcodeDataUrl)
+      } catch (err) {
+        console.error(err)
+        return Promise.reject(false)
       }
-      const qrcode = new QRCode('qrcodeCanvas', {
-        text: `${url}`,
-        width: formState.size,
-        height: formState.size,
-        correctLevel : formState.correctLevel,
-        colorDark : formState.frontColor,
-        colorLight : formState.bgColor,
-      })
-      qrcode.clear() //清除二维码 
-      qrcode.makeCode(url) //生成另一个新的二维码
-      // 存放二维码资源，方便下载
-      qrcodeImgData = qrcode._oDrawing._elCanvas.toDataURL("image/png")
     }
 
     const onCreateQrcode = function() {
-      loading.value = true
-      nextTick(() => {
-        document.getElementById('qrcodeCanvas').innerHTML = ''
-        createQtcode(formState.inputUrl)
-        loading.value = false
+      nextTick(async () => {
+        // document.getElementById('qrcodeCanvas').innerHTML = ''
+        const dataUrl = await generateQR(formState.inputUrl)
+
+        const tempImg = new Image()
+        tempImg.src = dataUrl
+        tempImg.onload = function(){
+
+          $message.info('width:'+tempImg.width+',height:'+tempImg.height)
+          const canvasWidth = tempImg.width
+          const canvasHeight = tempImg.height
+          nextTick(() => {
+
+            const cv = document.getElementById('qrcodeCanvas')
+            const ctx = cv.getContext("2d")
+            clearCanvas(cv, canvasWidth, canvasHeight)
+            drawFilletImage(ctx, tempImg, canvasWidth, canvasHeight, 0, 0, 0)
+          })
+        }
       })
     }
 
     const onDownloadQrcode = function() {
-      downLoading.value = true
-      nextTick(() => {
-        document.getElementById('qrcodeCanvas').innerHTML = ''
-        createQtcode(formState.inputUrl)
-        saveAs(qrcodeImgData, 'download.png')
-        downLoading.value = false
+      nextTick(async () => {
+        const qrcodeDataUrl = await generateQR(formState.inputUrl)
+        saveAs(qrcodeDataUrl, 'download.png')
       })
     }
 
     onMounted(() => {
-      document.getElementById('qrcodeCanvas').innerHTML = ''
-      createQtcode('demo')
+      generateQR('demo')
     })
 
     return {
       correntLevelOptions,
       formState,
-      loading,
-      downLoading,
       onCreateQrcode,
       onDownloadQrcode
     }
@@ -144,34 +230,82 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.create-qrcode-container {
+.cqr {
   position: relative;
   padding: 16px;
   height: 100%;
   background: #fff;
-}
 
-.create-qrcode__content {
-
-  .cqc__form {
+  &__content {
     display: flex;
-    width: 96%;
+    width: 90%;
+    min-width: 640px;
     justify-content: space-between;
+  }
 
-    .space {
-      width: 16px;
-    }
-    .qrcode-form-item {
-      justify-content: center;
-      flex: 1;
+  .space {
+    width: 16px;
+  }
+
+  &__item {
+    justify-content: center;
+    flex: 1;
+
+    & > label {
+      font-size: 14px;
+      line-height: 20px;
+      font-weight: 600;
     }
   }
 
+  &__form {
+    padding-top: 22px;
+    .qrcode-form {
+      width: 224px;
+      padding: 12px;
+      border: solid 1px #ccc;
+    }
+
+    .qr-form-item {
+      width: 120px;
+    }
+  }
+
+  :deep {
+    .qr-form-item.el-color-picker--mini {
+      width: 120px;
+    }
+    .el-color-picker--mini .el-color-picker__trigger {
+      width: 100% !important;
+    }
+
+    .qrcode-form .ant-form-item-label {
+      margin-right: 12px;
+    }
+
+    .ant-form-item-label > label {
+      text-align: justify;
+      line-height: 32px;
+      float: left;
+      display: block;
+      width: 100%;
+      white-space: normal;
+    }
+    .ant-form-item-label > label::after {
+      content: ':';
+      height: 0px;
+      width: 100%;
+      overflow: hidden;
+      display: inline-block;
+    }
+  }
+  .cqr-i {
+    height: 500px;
+  }
   .qrcode {
     background-color: #eee;
     border: 1px solid #ccc;
     text-align: center;
-    min-height: 360px;
     padding: 20px;
     display: flex;
     justify-content: center;
@@ -180,4 +314,3 @@ export default {
 }
 
 </style>
-

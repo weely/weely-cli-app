@@ -21,15 +21,6 @@
               >
               </a-select>
             </a-form-item>
-            <a-form-item label="版本">
-              <a-select
-                ref="select"
-                v-model:value="formState.version"
-                class="qr-form-item"
-              >
-                <a-select-option v-for="i in 40" :key="i" :value="i">{{i}}</a-select-option>
-              </a-select>
-            </a-form-item>
             <a-form-item label="maskPattern">
               <a-select
                 ref="select"
@@ -48,15 +39,6 @@
                 <a-select-option v-for="i in 17" :key="i" :value="i-1">{{i-1}}</a-select-option>
               </a-select>
             </a-form-item>
-            <a-form-item label="scale">
-              <a-select
-                ref="select"
-                v-model:value="formState.scale"
-                class="qr-form-item"
-              >
-                <a-select-option v-for="i in 20" :key="i" :value="i">{{i}}</a-select-option>
-              </a-select>
-            </a-form-item>
             <a-form-item label="尺寸">
               <a-select
                 ref="select"
@@ -72,7 +54,7 @@
                 <a-select-option value="2000">2000px</a-select-option>
               </a-select>
             </a-form-item>
-            <a-form-item label="尺寸">
+            <!-- <a-form-item label="尺寸">
               <a-select
                 ref="select"
                 v-model:value="formState.segments"
@@ -82,12 +64,12 @@
                 <a-select-option value="Numeric">Numeric</a-select-option>
                 <a-select-option value="byte">Byte</a-select-option>
               </a-select>
-            </a-form-item>
+            </a-form-item> -->
             <a-form-item label="前景色">
-              <el-color-picker v-model="formState.frontColor" show-alpha size="mini" class="qr-form-item" />
+              <el-color-picker v-model="formState.frontColor" size="mini" class="qr-form-item" />
             </a-form-item>
             <a-form-item label="背景色">
-              <el-color-picker v-model="formState.bgColor" show-alpha size="mini" class="qr-form-item"/>
+              <el-color-picker v-model="formState.bgColor" size="mini" class="qr-form-item"/>
             </a-form-item>
             <a-space direction="vertical" style="width: 100%;">
               <a-button type="primary" @click="onCreateQrcode" style="width: 100%;">生成二维码</a-button>
@@ -104,6 +86,7 @@
           <label>二维码</label>
           <section class="qrcode cqr-i">
             <canvas id="qrcodeCanvas" ref="qrcodeCanvas" style="max-width: 400px;max-height: 400px;"></canvas>
+            <!-- <img id="qrcodeLogo" :src="goomeQrcodeLogo" class="logo"> -->
           </section>
         </div>
       </div>
@@ -117,7 +100,8 @@ import { reactive, readonly, onMounted, nextTick, ref, getCurrentInstance } from
 import { ElColorPicker } from 'element-plus'
 import QRCode from 'qrcode'
 import { saveAs } from 'file-saver'
-import { drawFilletImage, clearCanvas } from './utils'
+import { drawFilletImage, clearCanvas, getBase64 } from './utils'
+import watermark from './watermark'
 
 export default {
   name: 'CreateQrcodeView',
@@ -129,29 +113,23 @@ export default {
     const internalInstance = getCurrentInstance()
     const $message = internalInstance.appContext.config.globalProperties.$message
 
-    // const goomeQrcodeLogo = require('@/assets/goome_qrcode_logo.jpg')
+    const goomeQrcodeLogo = require('@/assets/goome_qrcode_logo.jpg')
     const correntLevelOptions = readonly([
       { label: 'L（低级）', value: 'L' },
       { label: 'M（中级）', value: 'M' },
       { label: 'Q（四分之一）', value: 'Q' },
       { label: 'H（高级）', value: 'H' },
     ])
-    var segsOptions = [
-      { data: 'ABCDEFG', mode: 'alphanumeric' },
-      { data: '0123456', mode: 'numeric' }
-    ]
     const formState = reactive({
-      inputUrl: 'demo',
-      size: 200,
+      inputUrl: 'http://goome.net/goome-devices-munual/index.html#/',
+      size: 1000,
       frontColor: '#000000',
       bgColor: '#ffffff',
-      correctLevel: 'H',
-      scale: 4,
+      correctLevel: 'L',
       modules: '',
-      version: 2,
-      margin: 4,
+      margin: 1,
       maskPattern: 0,
-      segments: 'byte',
+      // segments: 'byte',
     })
 
     const generateQR = async (text) => {
@@ -164,16 +142,16 @@ export default {
           text: `${text}`,
           width: formState.size,
           height: formState.size,
-          version: formState.version,
           margin: formState.margin,
           maskPattern: formState.maskPattern,
-          scale: formState.scale,
+          // version: formState.version,
+          // scale: formState.scale,
+          // segments: formState.segments,
+          // modules: '',
           color: {
             dark : formState.frontColor,
             light: formState.bgColor,
           },
-          modules: '',
-          segments: formState.segments,
           errorCorrectionLevel : formState.correctLevel,
 
         }
@@ -212,6 +190,17 @@ export default {
       nextTick(async () => {
         const qrcodeDataUrl = await generateQR(formState.inputUrl)
         saveAs(qrcodeDataUrl, 'download.png')
+        // const qrcodeLogo = document.getElementById('qrcodeLogo')
+        // // getBase64()
+        // const cv = document.getElementById('qrcodeCanvas')
+        // const ctx = cv.getContext("2d")
+        // const transferImg = new Image()
+        // transferImg.src = qrcodeDataUrl
+        // transferImg.onload = function(){
+        //   clearCanvas(cv, cv.width, cv.height)
+        //   ctx.drawImage(qrcodeLogo, cv.width/2, cv.height/2, 100,  100)
+        //   saveAs(cv.toDataURL('image.png'), 'download.png')
+        // }
       })
     }
 
@@ -220,6 +209,7 @@ export default {
     })
 
     return {
+      goomeQrcodeLogo,
       correntLevelOptions,
       formState,
       onCreateQrcode,
@@ -310,6 +300,15 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    img.logo {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
 }
 

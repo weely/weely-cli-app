@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>day 2</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="progress-container">
+            <div id="progress" class="progress"></div>
+            <div class="circle active">1</div>
+            <div class="circle">2</div>
+            <div class="circle">3</div>
+            <div class="circle">4</div>
+        </div>
+
+        <button class="btn" id="prev" disabled>Prev</button>
+        <button class="btn" id="next">Next</button>
+    </div>
+
+    <script>
+        let currentActive = 1
+        const circles = document.querySelectorAll('.circle')
+        const prevBtn = document.getElementById('prev')
+        const nextBtn = document.getElementById('next')
+        const progress = document.getElementById('progress')
+        const circlesLen = circles.length
+
+        prevBtn.onclick = function onPrev(){
+            currentActive--
+
+            if (currentActive<=1) {
+                currentActive = 1
+            }
+
+            update()
+        }
+        nextBtn.onclick = function onNext(){
+            currentActive++
+
+            if (currentActive >= circlesLen) {
+                currentActive = circlesLen
+            }
+            update()
+
+        }
+
+        function update() {
+            console.log(currentActive)
+            circles.forEach((circle,index) => {
+                if (index < currentActive) {
+                    circle.classList.add('active')
+                } else {
+                    circle.classList.remove('active')
+                }
+            })
+
+            progress.style.width = (currentActive - 1) / (circlesLen - 1) * 100 + '%'
+            prevBtn.disabled = currentActive <= 1
+            nextBtn.disabled = currentActive >= circlesLen
+        }
+    </script>
+</body>
+</html>

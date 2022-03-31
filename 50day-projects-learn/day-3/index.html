@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>day-3</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="../font-awesome-4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+  <div class="container">
+    <div class="circle-container">
+      <div class="quarter-circle">
+        <button id="close"><i class="fa fa-times" aria-hidden="true"></i></button>
+        <button id="open"><i class="fa fa-bars" aria-hidden="true"></i></button>
+      </div>
+    </div>
+
+    <div class="content">
+      <article>
+        <h1>春江花月夜</h1>
+        <div class="poem-author">张若虚<em class="poem-dynasty">唐</em></div>
+        <p>春江潮水连海平，海上明月共潮生。</p>
+        <p>滟滟随波千万里，何处春江无月明！</p>
+        <p>江流宛转绕芳甸，月照花林皆似霰；</p>
+        <p>空里流霜不觉飞，汀上白沙看不见。</p>
+        <p>江天一色无纤尘，皎皎空中孤月轮。</p>
+        <p>江畔何人初见月？江月何年初照人？</p>
+        <p>人生代代无穷已，江月年年只相似。</p>
+        <p>不知江月待何人，但见长江送流水。</p>
+        <p>白云一片去悠悠，青枫浦上不胜愁。</p>
+        <p>谁家今夜扁舟子？何处相思明月楼？</p>
+        <p>可怜楼上月徘徊，应照离人妆镜台。</p>
+        <p>玉户帘中卷不去，捣衣砧上拂还来。</p>
+        <p>此时相望不相闻，愿逐月华流照君。</p>
+        <p>鸿雁长飞光不度，鱼龙潜跃水成文。</p>
+        <p>昨夜闲潭梦落花，可怜春半不还家。</p>
+        <p>江水流春去欲尽，江潭落月复西斜。</p>
+        <p>斜月沉沉藏海雾，碣石潇湘无限路。</p>
+        <p>不知乘月几人归，落月摇情满江树。</p>
+      </article>
+    </div>
+  </div>
+  <nav>
+    <ul>
+      <li><i class="fa fa-home"></i> Home</li>
+      <li><i class="fa fa-user-alt"></i> About</li>
+      <li><i class="fa fa-envelope"></i> Contact</li>
+    </ul>
+  </nav>
+  <script>
+    const open = document.getElementById('open')
+    const close = document.getElementById('close')
+    const container = document.querySelector('.container')
+
+    open.addEventListener('click', () => container.classList.add('show-nav'))
+
+    close.addEventListener('click', () => container.classList.remove('show-nav'))
+  </script>
+</body>
+</html>

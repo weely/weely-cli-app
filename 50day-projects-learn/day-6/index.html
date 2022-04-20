@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>day-6</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="../font-awesome-4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+  <h1>Scroll to see the animation</h1>
+  <div class="container">
+    <div class="box"><h2>Content</h2></div>
+    <div class="box"><h2>Content</h2></div>
+    <div class="box"><h2>Content</h2></div>
+    <div class="box"><h2>Content</h2></div>
+    <div class="box"><h2>Content</h2></div>
+    <div class="box"><h2>Content</h2></div>
+    <div class="box"><h2>Content</h2></div>
+    <div class="box"><h2>Content</h2></div>
+    <div class="box"><h2>Content</h2></div>
+    <div class="box"><h2>Content</h2></div>
+  </div>
+  <script>
+    function refreshNode(){
+      document.querySelectorAll('.box').forEach((item) => {
+        const triggerBottom = window.innerHeight -120
+        const top = item.getBoundingClientRect().top
+        if (top <= triggerBottom) {
+          item.classList.add('show')
+        } else {
+          item.classList.remove('show')
+        }
+      })
+    }
+    refreshNode()
+    window.addEventListener('scroll',refreshNode)
+  </script>
+</body>
+</html>

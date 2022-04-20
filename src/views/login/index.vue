@@ -1,9 +1,7 @@
 <template>
   <div class="login-page">
     <div>
-      <div id="login_container">
-
-      </div>
+      <div id="login_container"></div>
     </div>
   </div>
 </template>
@@ -25,14 +23,14 @@ export default {
     }
 
     onMounted(() => {
-      // eslint-disable-next-line
-      const wxLogin = new WxLogin({
+      new WxLogin({
         self_redirect:true,
         id:"login_container", 
-        appid: "wx1be34cc46c54e7ff",
-        // appid: "wxa473aba024d862ff",
+        // appid: "wxef49846a9f3ee3b4",
+        // redirect_uri: encodeURIComponent("https://weely.cc"),
+        appid: "wx4968c1523c416b8e",
+        redirect_uri: encodeURIComponent("http://support.gpsoo.net/1"),
         scope: "snsapi_login", 
-        redirect_uri: encodeURIComponent("http://weely.cc"),
         state: "",
         style: "white",
         href: ""

@@ -1,0 +1,38 @@
+:root {
+    --line-border-fill: #3498db;
+    --line-border-empty: #e0e0e0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    position: relative;
+}
+
+.bg {
+    position: absolute;
+    background: url('./2.webp') no-repeat center center/cover;
+    /* background: url('./3.jpeg') no-repeat center center/cover; */
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+}
+
+.loading-text {
+    position: absolute;
+    width: fit-content;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 50px;
+    color: #fff;
+}

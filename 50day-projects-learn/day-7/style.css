@@ -1,0 +1,127 @@
+:root {
+    --left-bg-color: rgba(87, 84, 236, 0.7);
+    --right-bg-color: rgba(43, 43, 43, 0.8);
+    --left-btn-hover-color: rgba(87, 84, 236, 1);
+    --right-btn-hover-color: rgba(28, 122, 28, 1);
+    --hover-width: 75%;
+    --other-width: 25%;
+    --speed: 1000ms;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+body {
+    overflow: hidden;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #333;
+    display: flex;
+    justify-content: space-around;
+}
+
+.panel {
+    overflow: hidden;
+    flex: 1;
+    position: relative;
+}
+
+.panel.right,
+.panel.left,
+.panel.right::before,
+.panel.left::before {
+  transition: all var(--speed) ease-in-out;
+}
+
+.panel.left {
+    background: url("./ps.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.panel.right {
+    background: url("./xbox.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.panel.left:hover, .panel.right:hover {
+    flex: 3;
+}
+
+.panel.left::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--left-bg-color);
+}
+
+.panel.right::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--right-bg-color);
+}
+
+h1 {
+    font-size: 4rem;
+    color: #fff;
+    position: absolute;
+    left: 50%;
+    top: 20%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+}
+
+.btn {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 50%;
+    top: 40%;
+    transform: translateX(-50%);
+    text-decoration: none;
+    color: #fff;
+    border: #fff solid 0.2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    width: 15rem;
+    padding: 1.5rem;
+    cursor: pointer;
+}
+
+.panel.left .btn:hover {
+    background-color: var(--left-btn-hover-color);
+    border-color: var(--left-btn-hover-color);
+}
+
+.panel.right .btn:hover {
+    background-color: var(--right-btn-hover-color);
+    border-color: var(--right-btn-hover-color);
+}
+
+@media (max-width: 800px) {
+    .btn {
+        padding: 1.2rem;
+        width: 12rem;
+    }
+}

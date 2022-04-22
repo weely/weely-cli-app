@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>每日一言</title>
+  <link rel="stylesheet" href="./style.css">
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="panel">
+      <h3>每日一言</h3>
+      <div id="hitokoto" class="sentence">
+        <p id="hitokoto_text">:D 获取中...</p>
+        <p id="hitokoto_author">来自...</p>
+      </div>
+      <button id="sentenceBtn" class="btn">换一句</button>
+    </div>
+  </div>
+  <script>
+    // https://api.ghser.com/random/api.php
+    // https://ae01.alicdn.com/kf/HTB1BcD_XBGw3KVjSZFD760WEpXa5.png
+    // https://ae01.alicdn.com/kf/H79520f28a41f4f82a8c10ee3728838dd7.jpg
+    // https://ae01.alicdn.com/kf/Hecdc423ac42c400ca4a0bdea7c345dd1x.jpg
+    // https://tva1.sinaimg.cn/large/9bd9b167ly1fwrt0cx51hj21hc0u0n8z.jpg
+    document.querySelector('.container').style.background = "url('https://api.ghser.com/random/api.php') no-repeat center center/cover";
+    // 获取每日一言语句
+    fetchHitokotoText()
+
+    document.getElementById("sentenceBtn").addEventListener('click', () => {
+      fetchHitokotoText()
+    })
+
+    function fetchHitokotoText(){
+      fetch('https://v1.hitokoto.cn')
+        .then(response => response.json())
+        .then(data => {
+          console.log(data)
+          document.getElementById('hitokoto_text').innerText = data.hitokoto
+          document.getElementById('hitokoto_author').innerText = '—— 「' +(data.from || '来源未知') + '」'
+        })
+        .catch(console.error)
+    }
+  </script>
+</body>
+</html>

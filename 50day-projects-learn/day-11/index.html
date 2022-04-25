@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>day-11</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="../font-awesome-4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+  <div class="container">
+    <div class="key">
+      按任意键获取对应键盘码
+    </div>
+  </div>
+  <script>
+    const container = document.querySelector('.container')
+    window.addEventListener('keydown', (event) => {
+      container.innerHTML = `<div class="key">${event.key === ' ' ? 'space' : event.key}<small>event.key</small></div>
+        <div class="key">${event.keyCode}<small>event.keyCode</small></div>
+        <div class="key">${event.code}<small>event.code</small></div>`
+    })
+  </script>
+</body>
+</html>

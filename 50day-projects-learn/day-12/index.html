@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>day-12</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="../font-awesome-4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+  <h1>FAQ</h1>
+  <div class="content">
+    <div class="faq-item">
+      <h3 class="faq-question">两对父子去买帽子，为什么只买了三顶？</h3>
+      <p class="faq-answer">答案：三代人</p>
+      <button class="faq-btn">
+        <i class="fa fa-chevron-down"></i>
+        <i class="fa fa-times"></i>
+      </button>
+    </div>
+    <div class="faq-item">
+      <h3 class="faq-question">有个人不是官，却负责全公司职工干部上上下下的工作。这个人是干什么的？</h3>
+      <p class="faq-answer">答案：开电梯的</p>
+      <button class="faq-btn">
+        <i class="fa fa-chevron-down"></i>
+        <i class="fa fa-times"></i>
+      </button>
+    </div>
+    <div class="faq-item">
+      <h3 class="faq-question">为什么好马不吃回头草？</h3>
+      <p class="faq-answer">答案：后面的草都吃没了</p>
+      <button class="faq-btn">
+        <i class="fa fa-chevron-down"></i>
+        <i class="fa fa-times"></i>
+      </button>
+    </div>
+    <div class="faq-item">
+      <h3 class="faq-question">熊掌和鱼什么时候才能兼得？</h3>
+      <p class="faq-answer">答案：在饭店里</p>
+      <button class="faq-btn">
+        <i class="fa fa-chevron-down"></i>
+        <i class="fa fa-times"></i>
+      </button>
+    </div>
+  </div>
+  <script>
+    document.querySelectorAll('.faq-item .faq-btn').forEach(item => {
+      item.addEventListener('click', () => {
+        item.parentNode.classList.toggle('active')
+      })
+    })
+  </script>
+</body>
+</html>

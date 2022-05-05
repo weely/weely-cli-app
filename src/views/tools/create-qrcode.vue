@@ -121,7 +121,7 @@ export default {
       { label: 'H（高级）', value: 'H' },
     ])
     const formState = reactive({
-      inputUrl: 'http://goome.net/goome-devices-munual/index.html#/',
+      inputUrl: 'demo',
       size: 1000,
       frontColor: '#000000',
       bgColor: '#ffffff',

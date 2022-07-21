@@ -1,0 +1,53 @@
+1、开通企业号，企业微信小程序（微信公众平台）
+2、地图企业认证
+3、购买服务器
+4、购买域名
+5、开发功能项目
+
+db: {
+  HOST: '172.17.0.1',
+  PORT: '3306',
+  DATABASE: 'wit_channel_db',
+  USERNAME: 'root',
+  PASSWORD: 'weely@123',
+},
+
+## linux安装包问题
+### autoconf命令不存在
+安装autoconf 
+http://www.manongjc.com/detail/18-qaoialuytunpfpp.html
+tar zxvf autoconf-2.69.tar.gz
+cd autoconf-2.69
+./configure --prefix=/usr/
+make && make install
+
+### 如果出现错误：
+configure: error: no acceptable m4 could be found in $PATH
+解决方法：
+wget -O m4-1.4.9.tar.gz http://ftp.gnu.org/gnu/m4/m4-1.4.9.tar.gz
+tar -zvxf m4-1.4.9.tar.gz
+cd m4-1.4.9
+./configure
+make && make install
+
+### 如果 make 编译时出现错误：
+Can't locate Data/Dumper.pm in @INC
+执行 yum install 'perl(Data::Dumper)'
+
+### autoreconf: failed to run aclocal
+yum install automake
+
+
+### 解决 configure.ac: error: possibly undefined macro: AC_PROG_LIBTOOL
+http://turbock79.cn/?p=2088
+
+### 解决 mozjpeg pre-build test failed
+yum install nasm
+
+```
+        location /manage {
+          alias /root/project/fly-rabbit-desktop/dist;
+          index  index.html index.htm;
+          try_files $uri $uri/ /index.html;
+        }
+```

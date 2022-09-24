@@ -20,16 +20,16 @@ var startTagReg = /^<([a-zA-Z][\w\-]*)(?:\s+([\w\-]+=[^>]+))*(\/)?>/
 
 function parseHTML(html) {
   const treeNode = []
-  html = html.trim()
-
   let lastIndex = 0
   while(html) {
+    html = html.trim()
     const node = {
       tag: '',
       lastIndex: lastIndex,
       attributes: null,
       children: null
     }
+    console.log(startTagReg.test(html))
     if (!startTagReg.test(html)) {  // text
       node.tag = 'text'
       node.children = html
@@ -37,15 +37,16 @@ function parseHTML(html) {
     } else {
       const [all, tagName, attributes] = html.match(startTagReg)
       node.tag = tagName
-
       html = html.slice(all.length)
-
     }
+    treeNode.push(node)
     lastIndex++
   }
+
+  console.log(treeNode)
 }
 
-
+parseHTML(template)
 
 
 

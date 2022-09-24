@@ -1,5 +1,5 @@
-const startTagReg = /^<([a-zA-Z0-9\-]+)(?:([ ]+[a-zA-Z0-9\-]+=[^> ]+))*>/;
-const attributeReg = /^(?:[ ]+([a-zA-Z0-9\-]+=[^> ]+))/;
+const startTagReg = /^<([a-zA-Z0-9\-]+)(?:(\s+[a-zA-Z0-9\-]+=[^> ]+))*>/;
+const attributeReg = /^(?:\s+([a-zA-Z0-9\-]+=[^> ]+))/;
 const endTagReg = /^<\/([a-zA-Z0-9\-]+)>/;
 const commentReg = /^<!\-\-[^(-->)]*\-\->/;
 const docTypeReg = /^<!doctype [^>]+>/;
@@ -78,7 +78,7 @@ module.exports = function htmlParser(str) {
     };
     let curParent = ast;
     let prevParent = null;
-    const domTree = parse(str,{
+    parse(str,{
         onComment(node) {
         },
         onStartTag(token) {

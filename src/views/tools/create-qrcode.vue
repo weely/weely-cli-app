@@ -66,10 +66,10 @@
               </a-select>
             </a-form-item> -->
             <a-form-item label="前景色">
-              <el-color-picker v-model="formState.frontColor" size="mini" class="qr-form-item" />
+              <el-color-picker v-model="formState.frontColor" size="mini" color-format="hex" class="qr-form-item" />
             </a-form-item>
             <a-form-item label="背景色">
-              <el-color-picker v-model="formState.bgColor" size="mini" class="qr-form-item"/>
+              <el-color-picker v-model="formState.bgColor" size="mini" color-format="hex" class="qr-form-item"/>
             </a-form-item>
             <a-space direction="vertical" style="width: 100%;">
               <a-button type="primary" @click="onCreateQrcode" style="width: 100%;">生成二维码</a-button>
@@ -95,13 +95,15 @@
 </template>
 
 <script>
+// import 'element-plus/es/components/base/style/css'
+// import 'element-plus/theme-chalk/el-progress.css'
 import { DownloadOutlined } from '@ant-design/icons-vue'
 import { reactive, readonly, onMounted, nextTick, ref, getCurrentInstance } from 'vue'
 import { ElColorPicker } from 'element-plus'
 import QRCode from 'qrcode'
 import { saveAs } from 'file-saver'
 import { drawFilletImage, clearCanvas, getBase64 } from './utils'
-import watermark from './watermark'
+// import watermark from './watermark'
 
 export default {
   name: 'CreateQrcodeView',
@@ -124,11 +126,12 @@ export default {
       inputUrl: 'demo',
       size: 1000,
       frontColor: '#000000',
-      bgColor: '#ffffff',
+      bgColor: '#ffffff00',
       correctLevel: 'L',
       modules: '',
       margin: 1,
       maskPattern: 0,
+      // bgTransparency: 100,
       // segments: 'byte',
     })
 

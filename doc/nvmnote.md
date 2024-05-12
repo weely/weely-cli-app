@@ -17,3 +17,5 @@ npm_mirror: https://npm.taobao.org/mirrors/npm/
 如果返回 `Now using node v14.17.6` 说明切换成功，执行`npm -v` 与`node -v`检查，均执行成功说明安装ok了。
 > 这里我最开始使用的 cmd 命令行，一直报错 `exit status 1: xxxxxxx`，安装路径也没有中文及空格，后来尝试使用超管打开powershell才执行成功。
 
+nvm 设置默认版本
+nvm alias default v14.18.3

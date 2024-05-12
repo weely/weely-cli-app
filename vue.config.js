@@ -1,6 +1,6 @@
 'use strict'
 
-const path = require('path')
+const path = require('path');
 
 function resolve(dir) {
   return path.join(__dirname, dir)
@@ -55,9 +55,7 @@ module.exports = {
     },
     devtool: 'source-map',
     plugins: [
-      require('unplugin-element-plus/webpack')({
-        // options
-      }),
+      // require('unplugin-element-plus/webpack'),
     ],
     module: {
       rules: [{

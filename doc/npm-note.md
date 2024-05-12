@@ -23,3 +23,7 @@ npm config set registry http://registry.npm.taobao.org
 ```
 npm config set registry https://registry.npmjs.org/
 ```
+
+
+npm 报错gifsicle@5.2.1
+npm install --ignore-list

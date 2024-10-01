@@ -352,6 +352,7 @@
       // 添加touchstart事件
       const searchBtn = document.getElementById("search-btn");
       searchBtn.addEventListener('touchstart', onSearch);
+      searchBtn.addEventListener('click', onSearch);
 
       const resetBtn = document.getElementById('reset-btn');
       resetBtn.addEventListener('touchstart', onReset);
